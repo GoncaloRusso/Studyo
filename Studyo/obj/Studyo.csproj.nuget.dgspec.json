@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dudal\\Source\\Repos\\Studyo\\Studyo\\Studyo.csproj": {}
+    "C:\\Users\\dudal\\source\\repos\\Studyo\\Studyo\\Studyo.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dudal\\Source\\Repos\\Studyo\\Studyo\\Studyo.csproj": {
+    "C:\\Users\\dudal\\source\\repos\\Studyo\\Studyo\\Studyo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dudal\\Source\\Repos\\Studyo\\Studyo\\Studyo.csproj",
+        "projectUniqueName": "C:\\Users\\dudal\\source\\repos\\Studyo\\Studyo\\Studyo.csproj",
         "projectName": "Studyo",
-        "projectPath": "C:\\Users\\dudal\\Source\\Repos\\Studyo\\Studyo\\Studyo.csproj",
+        "projectPath": "C:\\Users\\dudal\\source\\repos\\Studyo\\Studyo\\Studyo.csproj",
         "packagesPath": "C:\\Users\\dudal\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\dudal\\Source\\Repos\\Studyo\\Studyo\\obj\\",
         "projectStyle": "PackageReference",

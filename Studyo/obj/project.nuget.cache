@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vYUc5XnPXh5YvRjPDT5E5pPCMJ+q/YhoPuPvh3txp0d5zvbHtvw8dLt4AYsafEQozfQhYr3StyUZIJxmfNq5Tg==",
+  "dgSpecHash": "Xc3qeoMvUNC+ISPwTjtJ4ONLLxa3FczHgh3GWshDMjN7Oa1GXh2CFtW4A0zKE3AM00Dl8uV0ZiIIOz1j14GO0Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\dudal\\Source\\Repos\\Studyo\\Studyo\\Studyo.csproj",
+  "projectFilePath": "C:\\Users\\dudal\\source\\repos\\Studyo\\Studyo\\Studyo.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dudal\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\dudal\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
