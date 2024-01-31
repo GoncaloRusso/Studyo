@@ -1,15 +1,12 @@
 ﻿namespace Studyo.Models
 {
+    using Microsoft.AspNetCore.Identity;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
-    public class User
+    [Table("Users")]
+    public class User : IdentityUser
     {
-        [Required]
-        public Account Account { get; set; }
 
-        public bool IsConnected { get; set; }
-
-        [Required]
-        public UserType UserType { get; set; }
     }
 }

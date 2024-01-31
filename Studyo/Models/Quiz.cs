@@ -2,13 +2,15 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("Quizzes")]
     public class Quiz
     {
-        [Required]
-        public List<QuizQuestion> Questions { get; set; }
-
         [Key]
-        public int QuizID { get; set; }
+        public int Id { get; set; }
+
+        [NotMapped]
+        public List<QuizQuestion> Questions { get; set; }
     }
 }
