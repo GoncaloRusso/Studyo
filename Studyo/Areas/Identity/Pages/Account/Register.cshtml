@@ -4,9 +4,6 @@
     ViewData["Title"] = "Register";
 }
 
-<br />
-<br />
-
 <h1>@ViewData["Title"]</h1>
 <div>
     <div>
@@ -16,22 +13,24 @@
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div>
                 <label asp-for="Input.Email">Email</label>
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <input asp-for="Input.Email" class="form-control" autocomplete="email" aria-required="true" placeholder="name@example.com" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
-            <br />
+            <div>
+                <label asp-for="Input.Username">Username</label>
+                <input asp-for="Input.Username" class="form-control" autocomplete="username" aria-required="true" placeholder="Username" />
+                <span asp-validation-for="Input.Username" class="text-danger"></span>
+            </div>
             <div>
                 <label asp-for="Input.Password">Password</label>
                 <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Password" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
-            <br />
             <div>
                 <label asp-for="Input.ConfirmPassword">Confirm Password</label>
                 <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Password" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <br />
             <div>
                 <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
             </div>
