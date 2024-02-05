@@ -13,6 +13,22 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\dudal\\source\\repos\\Studyo\\Studyo\\wwwroot\\images\\active_recall.png",
+      "PackagePath": "staticwebassets\\images\\active_recall.png"
+    },
+    {
+      "Id": "C:\\Users\\dudal\\source\\repos\\Studyo\\Studyo\\wwwroot\\images\\image_pomodoro.png",
+      "PackagePath": "staticwebassets\\images\\image_pomodoro.png"
+    },
+    {
+      "Id": "C:\\Users\\dudal\\source\\repos\\Studyo\\Studyo\\wwwroot\\images\\logo_studyo.png",
+      "PackagePath": "staticwebassets\\images\\logo_studyo.png"
+    },
+    {
+      "Id": "C:\\Users\\dudal\\source\\repos\\Studyo\\Studyo\\wwwroot\\images\\spaced.png",
+      "PackagePath": "staticwebassets\\images\\spaced.png"
+    },
+    {
       "Id": "C:\\Users\\dudal\\source\\repos\\Studyo\\Studyo\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
@@ -243,10 +259,6 @@
     {
       "Id": "C:\\Users\\dudal\\source\\repos\\Studyo\\Studyo\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
-    },
-    {
-      "Id": "C:\\Users\\dudal\\source\\repos\\Studyo\\Studyo\\wwwroot\\logo_studyo.png",
-      "PackagePath": "staticwebassets\\logo_studyo.png"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Studyo.Microsoft.AspNetCore.StaticWebAssets.props",

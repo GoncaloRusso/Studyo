@@ -14,6 +14,14 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+
+//Descomentar este código para tornar a página de login como a página default
+/*
+builder.Services.AddControllersWithViews().AddRazorPagesOptions(options => {
+    options.Conventions.AddAreaPageRoute("Identity", "/Account/Login", "");
+});
+*/
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,9 +43,11 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+//´C este código para tornar a página de login como a página default
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.MapRazorPages();
 
 app.Run();
