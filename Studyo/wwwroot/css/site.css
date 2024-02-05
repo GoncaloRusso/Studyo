@@ -1,5 +1,6 @@
 html {
   font-size: 14px;
+  color: white;
 }
 
 @media (min-width: 768px) {
@@ -13,10 +14,41 @@ html {
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
+    color: white;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-image: linear-gradient(#0a090e, #543e96);
+    color: white;
+}
+
+nav {
+    font-size: 20px;
+}
+
+form {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.nav-image{
+    height: 40px;
+    width: 190px;
+    margin-top: 20px;
+}
+
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
 }
