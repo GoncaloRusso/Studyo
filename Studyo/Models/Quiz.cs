@@ -7,10 +7,8 @@
     [Table("Quizzes")]
     public class Quiz
     {
-        [Key]
-        public int Id { get; set; }
+        [Key] public int Id { get; set; }
 
-        [NotMapped]
-        public List<QuizQuestion> Questions { get; set; }
+        [NotMapped] public List<QuizQuestion> Questions { get; set; }
     }
 }

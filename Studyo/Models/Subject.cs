@@ -7,13 +7,11 @@
     [Table("Subjects")]
     public class Subject
     {
-        [Key]
-        public int Id { get; set; }
+        [Key] public int Id { get; set; }
 
-        [Required]
-        public string Name { get; set; }
+        [Required] public string Name { get; set; }
 
-        [NotMapped]
-        public HashSet<Chapter> Chapters { get; set; }
+        // Remova o atributo NotMapped
+        public virtual ICollection<Chapter> Chapters { get; set; }
     }
 }

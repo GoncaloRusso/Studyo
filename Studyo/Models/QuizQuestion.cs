@@ -7,14 +7,10 @@
     [Table("QuizQuestions")]
     public class QuizQuestion
     {
-        [Key]
-        [ForeignKey("Quiz")]
-        public int Id { get; set; }
+        [Key][ForeignKey("Quiz")]public int Id { get; set; }
 
-        [Required]
-        public string Question { get; set; }
+        [Required] public string Question { get; set; }
 
-        [NotMapped]
-        public Dictionary <bool, string> Answers { get; set; }
+        [NotMapped] public Dictionary<bool, string> Answers { get; set; }
     }
 }

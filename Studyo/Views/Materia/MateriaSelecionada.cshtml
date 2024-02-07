@@ -1,0 +1,16 @@
+﻿@model Studyo.Models.Subject
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="text-center">
+    <h1 class="display-4">@Model.Name</h1>
+    <p>Capítulos:</p>
+    <ul>
+        @foreach (var chapter in Model.Chapters)
+        {
+            <li>@chapter.Name</li>
+        }
+    </ul>
+</div>
