@@ -1,0 +1,79 @@
+﻿@model Studyo.Models.Pomodoro
+
+<style>
+
+    #mySidenav a {
+        position: absolute;
+        left: -480px;
+        transition: 0.3s;
+        padding: 15px;
+        width: 30%;
+        text-decoration: none;
+        font-size: 20px;
+        color: white;
+        border-radius: 0 5px 5px 0;
+        height: 84%;
+        background: rgba(145,123,238,0.9);
+        margin-top: 5%;
+    }
+
+        #mySidenav a:hover {
+            left: 0;
+        }
+
+    #about {
+        top: 0px;
+    }
+
+    p {
+        text-align: center;
+        font-size: 60px;
+        margin-top: 0px;
+    }
+
+</style>
+
+
+<div id="mySidenav" class="sidenav">
+    <a href="#" id="about">
+        <h3 style="text-align: center; color: black;">Pomodoro</h3>
+        <h5 style="text-align: center; color: black;">Escolher tempo de estudo</h5>
+        <select style="margin-left: 50%; id="myDropdown" onchange="saveStudyTime(this.value)">
+            <option value="option1">0</option>
+            <option value="option1">45</option>
+            <option value="option2">30</option>
+            <option value="option3">25</option>
+            <option value="option4">15</option>
+        </select>
+        <h5 style="text-align: center; color: black;">Escolher tempo de descanço</h5>
+        <select style="margin-left: 50%; id="myDropdown" onchange="saveRestTime(this.value)">
+            <option value="option1">0</option>
+            <option value="option1">20</option>
+            <option value="option2">15</option>
+            <option value="option3">10</option>
+            <option value="option4">5</option>
+        </select>
+        <h5 style="text-align: center; color: black;">Escolher quantidade de ciclos</h5>
+        <select style="margin-left: 50%; id="myDropdown" onchange="saveCycles(this.value)">
+            <option value="option1">0</option>
+            <option value="option2">4</option>
+            <option value="option3">3</option>
+            <option value="option4">2</option>
+            <option value="option4">1</option>
+        </select>
+        <h5 style="text-align: center; color: white;">0/@Html.DisplayFor(model => model.Cycles) Ciclos Concluidos</h5>
+        <p id="demo"></p>
+    </a>
+</div>
+
+<script>
+    function saveStudyTime(selectedValue) {
+        model.StudyTime = selectedValue;
+    }
+    function saveRestTime(selectedValue) {
+        model.RestTime = selectedValue;
+    }
+    function saveCycles(selectedValue) {
+        model.Cycles = selectedValue;
+    }
+</script>
