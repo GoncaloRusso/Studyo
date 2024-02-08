@@ -307,7 +307,6 @@ C:\Users\Underfire\OneDrive\Ambiente de Trabalho\School Projects\Studyo\Studyo\o
 C:\Users\Underfire\OneDrive\Ambiente de Trabalho\School Projects\Studyo\Studyo\obj\Debug\net8.0\Studyo.pdb
 C:\Users\Underfire\OneDrive\Ambiente de Trabalho\School Projects\Studyo\Studyo\obj\Debug\net8.0\Studyo.csproj.AssemblyReference.cache
 C:\Users\Underfire\OneDrive\Ambiente de Trabalho\School Projects\Studyo\Studyo\obj\Debug\net8.0\Studyo.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\Underfire\OneDrive\Ambiente de Trabalho\School Projects\Studyo\Studyo\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\Underfire\OneDrive\Ambiente de Trabalho\School Projects\Studyo\Studyo\bin\Debug\net8.0\appsettings.json
 C:\Users\Underfire\OneDrive\Ambiente de Trabalho\School Projects\Studyo\Studyo\bin\Debug\net8.0\Studyo.staticwebassets.runtime.json
 C:\Users\Underfire\OneDrive\Ambiente de Trabalho\School Projects\Studyo\Studyo\bin\Debug\net8.0\Studyo.exe
@@ -584,9 +583,9 @@ C:\Users\Underfire\OneDrive\Ambiente de Trabalho\School Projects\Studyo\Studyo\o
 C:\Users\Underfire\OneDrive\Ambiente de Trabalho\School Projects\Studyo\Studyo\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.Studyo.props
 C:\Users\Underfire\OneDrive\Ambiente de Trabalho\School Projects\Studyo\Studyo\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.Studyo.props
 C:\Users\Underfire\OneDrive\Ambiente de Trabalho\School Projects\Studyo\Studyo\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\Underfire\OneDrive\Ambiente de Trabalho\School Projects\Studyo\Studyo\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\Underfire\OneDrive\Ambiente de Trabalho\School Projects\Studyo\Studyo\obj\Debug\net8.0\scopedcss\bundle\Studyo.styles.css
-C:\Users\Underfire\OneDrive\Ambiente de Trabalho\School Projects\Studyo\Studyo\obj\Debug\net8.0\scopedcss\projectbundle\Studyo.bundle.scp.css
 C:\Users\Underfire\OneDrive\Ambiente de Trabalho\School Projects\Studyo\Studyo\obj\Debug\net8.0\Studyo.csproj.CopyComplete
 C:\Users\Underfire\OneDrive\Ambiente de Trabalho\School Projects\Studyo\Studyo\obj\Debug\net8.0\Studyo.genruntimeconfig.cache
 C:\Users\Underfire\OneDrive\Ambiente de Trabalho\School Projects\Studyo\Studyo\obj\Debug\net8.0\ref\Studyo.dll
+C:\Users\Underfire\OneDrive\Ambiente de Trabalho\School Projects\Studyo\Studyo\obj\Debug\net8.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\Underfire\OneDrive\Ambiente de Trabalho\School Projects\Studyo\Studyo\obj\Debug\net8.0\scopedcss\projectbundle\Studyo.bundle.scp.css

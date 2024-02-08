@@ -1,0 +1,9 @@
+﻿@page "{subjectName}"
+@model Studyo.Pages.SubjectModel
+
+@{
+    ViewData["Title"] = "Subjects/" + Model.GetName();
+}
+
+<h1>Subject Details: @Model.GetName()</h1>
+<!-- Render other details of the subject as needed -->

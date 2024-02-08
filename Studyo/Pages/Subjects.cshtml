@@ -1,0 +1,74 @@
+﻿@page
+@model Studyo.Pages.SubjectsModel
+@{
+    ViewData["Title"] = "Subjects";
+}
+
+<style>
+    .menu-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .subject_button {
+        position: relative;
+        background-image: linear-gradient(#0a090e, #543e96);
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1 0 calc(16.66% - 20px); /* for six columns, adjust as needed */
+        margin: 10px;
+        width: 100px; /* set a specific width */
+        height: 100px; /* set a specific height */
+        box-sizing: border-box; /* to include padding and border in the element's total width and height */
+        overflow: hidden; /* to prevent text from overflowing */
+        font-weight: bold; /* make the text bold */
+        transition: background-color 0.5s ease; /* transition effect */
+    }
+
+    .subject_button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3); /* semi-transparent black */
+        transform: scaleY(0);
+        transition: transform 0.5s ease;
+        transform-origin: top;
+        z-index: 2;
+    }
+
+    .subject_button:hover {
+        color: white; /* keep the text color white on hover */
+    }
+
+    .subject_button:hover::before {
+        transform: scaleY(1);
+    }
+
+    .subject_button span {
+        position: relative;
+        z-index: 3;
+    }
+
+</style>
+
+<body>
+    <div class ="menu-container">
+        @foreach (var subject in Model.Subjects)
+        {
+            <a id="subject-@subject.Id" class="subject_button"
+               asp-page-handler="SubjectAsync"
+               asp-route-subjectName="@subject.Name">
+                @subject.Name
+            </a>
+        }
+    </div>
+</body>

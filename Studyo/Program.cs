@@ -41,12 +41,8 @@ builder.Services.AddControllersWithViews().AddRazorPagesOptions(options => {
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseMigrationsEndPoint();
-}
-else
-{
+if (app.Environment.IsDevelopment()) { app.UseMigrationsEndPoint(); }
+else {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
@@ -59,10 +55,16 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-//�C este c�digo para tornar a p�gina de login como a p�gina default
+// Este codigo para tornar a pagina de login como a pagina default
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}"
+);
+
+app.MapControllerRoute(
+    name: "subject",
+    pattern: "Subjects/{subjectName}",
+    defaults: new { controller = "Subjects", action = "SubjectDetails" }
 );
 
 app.MapRazorPages();
