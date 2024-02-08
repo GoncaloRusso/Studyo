@@ -1,2 +1,4 @@
-
-.vs/
+.vs
+/Studyo/appsettings.json
+/Studyo/obj
+/Studyo/bin
