@@ -10,7 +10,8 @@
 
         [Required] public string Name { get; set; }
 
-        [NotMapped] public Material[] Normal { get; set; }
+        // Change from array to single instance
+        [NotMapped] public Material Normal { get; set; }
 
         [Required] public int SubjectId { get; set; }
 

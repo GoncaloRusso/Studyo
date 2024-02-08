@@ -31,7 +31,7 @@ builder.Services.AddControllersWithViews();
 //    options.Password.RequiredUniqueChars = 0;
 //});
 
-//Descomentar este c�digo para tornar a p�gina de login como a p�gina default
+//Descomentar este codigo para tornar a pagina de login como a pagina default
 /*
 builder.Services.AddControllersWithViews().AddRazorPagesOptions(options => {
     options.Conventions.AddAreaPageRoute("Identity", "/Account/Login", "");
@@ -59,7 +59,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-//�C este c�digo para tornar a p�gina de login como a p�gina default
+//Comentar este codigo para tornar a pagina de login como a pagina default
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}"
