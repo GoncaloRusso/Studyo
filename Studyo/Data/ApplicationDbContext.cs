@@ -16,6 +16,8 @@ namespace Studyo.Data
         public DbSet<Workshop> Workshops { get; set; }
         public DbSet<WorkshopContent> WorkshopContents { get; set; }
 
+        public DbSet<DisciplinaUser> DisciplinaUsers { get; set; }
+
         public ApplicationDbContext(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

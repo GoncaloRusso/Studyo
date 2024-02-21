@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Studyo")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c3c617bdfe33836e5c9408df15a89049a585f520")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+015994773b5aa1eec8b2b1b7804ce9c3dbbf1d9c")]
 [assembly: System.Reflection.AssemblyProductAttribute("Studyo")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Studyo")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

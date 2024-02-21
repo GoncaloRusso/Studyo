@@ -8753,19 +8753,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\dudal\\.nuget\\packages\\": {}
+    "C:\\Users\\User\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dudal\\source\\repos\\Studyo\\Studyo\\Studyo.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\Studyo\\Studyo\\Studyo.csproj",
       "projectName": "Studyo",
-      "projectPath": "C:\\Users\\dudal\\source\\repos\\Studyo\\Studyo\\Studyo.csproj",
-      "packagesPath": "C:\\Users\\dudal\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dudal\\source\\repos\\Studyo\\Studyo\\obj\\",
+      "projectPath": "C:\\Users\\User\\Documents\\GitHub\\Studyo\\Studyo\\Studyo.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\User\\Documents\\GitHub\\Studyo\\Studyo\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\dudal\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
