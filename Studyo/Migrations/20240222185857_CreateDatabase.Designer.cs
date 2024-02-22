@@ -11,9 +11,9 @@ using Studyo.Data;
 
 namespace Studyo.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240131170554_InitialMigration")]
-    partial class InitialMigration
+    [DbContext(typeof(StudyoDbContext))]
+    [Migration("20240222185857_CreateDatabase")]
+    partial class CreateDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -262,7 +262,12 @@ namespace Studyo.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SubjectId");
 
                     b.ToTable("Chapters");
                 });
@@ -275,7 +280,21 @@ namespace Studyo.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ChapterId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QuizId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ChapterId");
+
+                    b.HasIndex("QuizId");
 
                     b.ToTable("Materials");
                 });
@@ -383,10 +402,6 @@ namespace Studyo.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.ToTable("Users");
                 });
 
@@ -441,6 +456,36 @@ namespace Studyo.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Studyo.Models.Chapter", b =>
+                {
+                    b.HasOne("Studyo.Models.Subject", "Subject")
+                        .WithMany("Chapters")
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Subject");
+                });
+
+            modelBuilder.Entity("Studyo.Models.Material", b =>
+                {
+                    b.HasOne("Studyo.Models.Chapter", "Chapter")
+                        .WithMany()
+                        .HasForeignKey("ChapterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Studyo.Models.Quiz", "Quiz")
+                        .WithMany()
+                        .HasForeignKey("QuizId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Chapter");
+
+                    b.Navigation("Quiz");
+                });
+
             modelBuilder.Entity("Studyo.Models.Workshop", b =>
                 {
                     b.HasOne("Studyo.Models.User", "Author")
@@ -467,6 +512,11 @@ namespace Studyo.Migrations
                         .HasForeignKey("Studyo.Models.User", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Studyo.Models.Subject", b =>
+                {
+                    b.Navigation("Chapters");
                 });
 
             modelBuilder.Entity("Studyo.Models.WorkshopContent", b =>

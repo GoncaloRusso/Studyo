@@ -6,10 +6,14 @@
     [Table("AnkiCards")]
     public class AnkiCard
     {
-        [Key] public int Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] 
+        public int Id { get; set; }
 
-        [Required] public string Phrase { get; set; }
+        [Required]
+        public string Phrase { get; set; }
 
-        [Required] public string Completion { get; set; }
+        [Required]
+        public string Completion { get; set; }
     }
 }

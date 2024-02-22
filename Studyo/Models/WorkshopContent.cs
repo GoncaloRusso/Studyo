@@ -5,7 +5,8 @@ namespace Studyo.Models
 {
     public class WorkshopContent
     {
-        [Key, ForeignKey("Workshop")]
+        [Key]
+        [ForeignKey("Workshop")]
         public int Id { get; set; }
 
         [Required]

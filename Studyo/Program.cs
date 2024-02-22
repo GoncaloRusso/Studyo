@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
     throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => {
+builder.Services.AddDbContext<StudyoDbContext>(options => {
     options.UseSqlServer(connectionString);
 });
 
@@ -16,27 +16,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => {
     options.SignIn.RequireConfirmedAccount = true;
-}).AddEntityFrameworkStores<ApplicationDbContext>();
+}).AddEntityFrameworkStores<StudyoDbContext>();
 
 builder.Services.AddControllersWithViews();
-
-// Uncomment to disable password verifications
-//builder.Services.Configure<IdentityOptions>(options =>
-//{
-//    options.Password.RequireDigit = false;
-//    options.Password.RequireLowercase = false;
-//    options.Password.RequireNonAlphanumeric = false;
-//    options.Password.RequireUppercase = false;
-//    options.Password.RequiredLength = 3;
-//    options.Password.RequiredUniqueChars = 0;
-//});
-
-//Descomentar este c�digo para tornar a p�gina de login como a p�gina default
-/*
-builder.Services.AddControllersWithViews().AddRazorPagesOptions(options => {
-    options.Conventions.AddAreaPageRoute("Identity", "/Account/Login", "");
-});
-*/
 
 var app = builder.Build();
 

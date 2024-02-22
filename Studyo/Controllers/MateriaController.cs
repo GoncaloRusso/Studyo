@@ -9,9 +9,9 @@ namespace Studyo.Controllers
 {
     public class MateriaController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly StudyoDbContext _context;
 
-        public MateriaController(ApplicationDbContext context)
+        public MateriaController(StudyoDbContext context)
         {
             _context = context;
         }
@@ -32,45 +32,46 @@ namespace Studyo.Controllers
         public IActionResult AdicionarTodasAsMateriasEChapters()
         {
             // Lista de nomes das matérias
-            var nomesDasMaterias = new List<string>
-    {
-        "Antropologia",
-        "Aplicações Matemáticas B",
-        "Biologia",
-        "Ciência Política",
-        "Clássicos da Literatura",
-        "Desenho A",
-        "Direito",
-        "Economia A",
-        "Economia C",
-        "Filosofia A",
-        "Filosofia B",
-        "Física",
-        "Geografia A",
-        "Geografia C",
-        "Geometria Descritiva A",
-        "Grego",
-        "História A",
-        "História B",
-        "História da Cultura e das Artes",
-        "Língua Estrangeira I",
-        "Língua Estrangeira II",
-        "Língua Estrangeira III",
-        "Latim A",
-        "Latim B",
-        "Literatura Portugesa",
-        "Literatura de Língua Portuguesa",
-        "Materiais e Tecnologias",
-        "Matemática A",
-        "Matemática Aplicada Às Ciências Sociais",
-        "Oficina de Artes",
-        "Oficina de Multimédia B",
-        "Português",
-        "Psicologia B",
-        "Química",
-        "Sociologia"
-        // Adicione mais nomes conforme necessário
-    };
+                    var nomesDasMaterias = new List<string>
+            {
+                "Antropologia",
+                "Aplicações Matemáticas B",
+                "Biologia",
+                "Ciência Política",
+                "Clássicos da Literatura",
+                "Desenho A",
+                "Direito",
+                "Economia A",
+                "Economia C",
+                "Filosofia A",
+                "Filosofia B",
+                "Física",
+                "Geografia A",
+                "Geografia C",
+                "Geometria Descritiva A",
+                "Grego",
+                "História A",
+                "História B",
+                "História da Cultura e das Artes",
+                "Língua Estrangeira I",
+                "Língua Estrangeira II",
+                "Língua Estrangeira III",
+                "Latim A",
+                "Latim B",
+                "Literatura Portugesa",
+                "Literatura de Língua Portuguesa",
+                "Materiais e Tecnologias",
+                "Matemática A",
+                "Matemática Aplicada Às Ciências Sociais",
+                "Oficina de Artes",
+                "Oficina de Multimédia B",
+                "Português",
+                "Psicologia B",
+                "Química",
+                "Sociologia"
+                // Adicione mais nomes conforme necessário
+            };
+
             foreach (var nomeDaMateria in nomesDasMaterias)
             {
                 // Crie uma nova instância da matéria

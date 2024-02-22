@@ -6,13 +6,15 @@
     [Table("Chapters")]
     public class Chapter
     {
-        [Key] public int Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
-        [Required] public string Name { get; set; }
+        [Required]
+        public string Name { get; set; }
 
-        [NotMapped] public Material[] Normal { get; set; }
-
-        [Required] public int SubjectId { get; set; }
+        [Required]
+        public int SubjectId { get; set; }
 
         [ForeignKey("SubjectId")]
         public virtual Subject Subject { get; set; }

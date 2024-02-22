@@ -7,11 +7,15 @@
     [Table("Subjects")]
     public class Subject
     {
-        [Key] public int Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
-        [Required] public string Name { get; set; }
+        [Required]
+        public string Name { get; set; }
 
-        // Remova o atributo NotMapped
-        public virtual ICollection<Chapter> Chapters { get; set; }
+        [Required]
+        public List<Chapter> Chapters { get; set; }
     }
 }
+    
