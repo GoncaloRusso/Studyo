@@ -12,8 +12,8 @@ using Studyo.Data;
 namespace Studyo.Migrations
 {
     [DbContext(typeof(StudyoDbContext))]
-    [Migration("20240222185857_CreateDatabase")]
-    partial class CreateDatabase
+    [Migration("20240222214529_PopulateDatabase")]
+    partial class PopulateDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -270,6 +270,19 @@ namespace Studyo.Migrations
                     b.HasIndex("SubjectId");
 
                     b.ToTable("Chapters");
+                });
+
+            modelBuilder.Entity("Studyo.Models.DisciplinaUser", b =>
+                {
+                    b.Property<int>("DisciplinaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("DisciplinaId", "UserId");
+
+                    b.ToTable("DisciplinaUsers");
                 });
 
             modelBuilder.Entity("Studyo.Models.Material", b =>

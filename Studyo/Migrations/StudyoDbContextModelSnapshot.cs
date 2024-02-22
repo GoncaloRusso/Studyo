@@ -269,6 +269,19 @@ namespace Studyo.Migrations
                     b.ToTable("Chapters");
                 });
 
+            modelBuilder.Entity("Studyo.Models.DisciplinaUser", b =>
+                {
+                    b.Property<int>("DisciplinaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("DisciplinaId", "UserId");
+
+                    b.ToTable("DisciplinaUsers");
+                });
+
             modelBuilder.Entity("Studyo.Models.Material", b =>
                 {
                     b.Property<int>("Id")

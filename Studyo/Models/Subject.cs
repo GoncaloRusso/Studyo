@@ -14,7 +14,6 @@
         [Required]
         public string Name { get; set; }
 
-        [Required]
         public List<Chapter> Chapters { get; set; }
     }
 }

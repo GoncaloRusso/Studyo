@@ -1,7 +1,6 @@
 ﻿namespace Studyo.Models
 {
     using Microsoft.EntityFrameworkCore;
-    using Mono.TextTemplating;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -10,7 +9,6 @@
     [PrimaryKey(nameof(DisciplinaId), nameof(UserId))]
     public class DisciplinaUser
     {
-
         [Required]
         [ForeignKey("SubjetdId")]
         public int DisciplinaId { get; set; }
@@ -19,7 +17,7 @@
         [ForeignKey("UserId")]
         public string UserId { get; set; }
 
-
+        [NotMapped]
         public Dictionary<Chapter, bool> MaterialComp {  get; set; }
 
         public int percentagemFim() {

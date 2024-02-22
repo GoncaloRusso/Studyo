@@ -9,6 +9,7 @@ namespace Studyo.Data
     {
         public DbSet<AnkiCard> AnkiCards { get; set; } = default!;
         public DbSet<Chapter> Chapters { get; set; } = default!;
+        public DbSet<DisciplinaUser> DisciplinaUsers { get; set; } = default!;
         public DbSet<Quiz> Quizzes { get; set; } = default!;
         public DbSet<QuizQuestion> QuizQuestions { get; set; } = default!;
         public DbSet<Material> Materials { get; set; } = default!;

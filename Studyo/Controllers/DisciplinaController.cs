@@ -1,21 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Studyo.Data;
 using Studyo.Models;
-using System.Security.Claims;
 
 namespace Studyo.Controllers
 {
     public class DisciplinaController : Controller
     {
 
-        private readonly ApplicationDbContext _context;
+        private readonly StudyoDbContext _context;
         private readonly UserManager<IdentityUser> _userManger;
 
-        public DisciplinaController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public DisciplinaController(StudyoDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _userManger = userManager;
@@ -27,15 +24,14 @@ namespace Studyo.Controllers
         }
 
         [Authorize]
-        public async Task<int> AlgoritmoChapterId()
+        public async Task<IActionResult> AlgoritmoChapterId()
         {
             IdentityUser user = await _userManger.GetUserAsync(User);
             List<DisciplinaUser> currentUserSubjects = _context.DisciplinaUsers.Where(d => d.UserId == user.Id).ToList();
 
-            if (currentUserSubjects.Count == 0)
-            {
-                return -1;
-            }
+            int idChapter;
+            
+            if (currentUserSubjects.Count == 0) { idChapter = -1; }
             else
             {
                 List<Chapter> listChaptersOfSubject = new List<Chapter>();
@@ -48,18 +44,14 @@ namespace Studyo.Controllers
                     }
                 }
 
-                return listChaptersOfSubject.OrderBy(c => c.Id).First().Id;
+                idChapter = listChaptersOfSubject.OrderBy(c => c.Id).First().Id;
             }
-        }
 
+            if (idChapter == -1) { return NotFound(); }
 
-
-        public IActionResult showChapterByAlgo(int idChapter)
-        {
             Chapter chap = _context.Chapters.Where(c => c.Id == idChapter).First();
 
             return View(chap);
         }
-
     }
 }

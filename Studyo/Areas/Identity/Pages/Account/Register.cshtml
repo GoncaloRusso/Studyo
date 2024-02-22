@@ -3,97 +3,36 @@
 @{
     ViewData["Title"] = "Register";
 }
-<style>
 
-    .login-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
-
-    .login-box {
-        background-color: rgba(0, 0, 0, 0.5);
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-        width: 600px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    .form-control {
-        width: 100%;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ddd;
-    }
-
-    .btn-primary {
-        background-color: #007BFF;
-        border: none;
-        color: white;
-        text-transform: uppercase;
-        padding: 10px;
-        cursor: pointer;
-        border-radius: 12px;
-        width: 100%;
-    }
-
-        .btn-primary:hover {
-            background-color: white;
-            color: black;
-        }
-
-    #registerSubmit {
-        background-color: #007BFF;
-        border: none;
-        color: white;
-        padding: 10px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        transition-duration: 0.4s;
-        cursor: pointer;
-        border-radius: 12px;
-        width: 100%;
-    }
-
-        #registerSubmit:hover {
-            background-color: white;
-            color: black;
-        }
-
-</style>
-<div class="login-container">
-    <div class="login-box">
-        <h1>Criar conta</h1>
+<h1>@ViewData["Title"]</h1>
+<div>
+    <div>
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <div class="form-group">
-                <input asp-for="Input.Email" class="form-control" autocomplete="email" aria-required="true" placeholder="Email" />
+            <h2>Create a new account.</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div>
+                <label asp-for="Input.Email">Email</label>
+                <input asp-for="Input.Email" class="form-control" autocomplete="email" aria-required="true" placeholder="name@example.com" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input asp-for="Input.Username" class="form-control" autocomplete="username" aria-required="true" placeholder="Nome de Utilizador" />
+            <div>
+                <label asp-for="Input.Username">Username</label>
+                <input asp-for="Input.Username" class="form-control" autocomplete="username" aria-required="true" placeholder="Username" />
                 <span asp-validation-for="Input.Username" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Palavra Pass" />
+            <div>
+                <label asp-for="Input.Password">Password</label>
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Password" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Confirmar Palavra Pass" />
+            <div>
+                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Password" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Registar</button>
+            <div>
+                <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
             </div>
         </form>
     </div>

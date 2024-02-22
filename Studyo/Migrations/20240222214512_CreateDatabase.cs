@@ -65,6 +65,18 @@ namespace Studyo.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DisciplinaUsers",
+                columns: table => new
+                {
+                    DisciplinaId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DisciplinaUsers", x => new { x.DisciplinaId, x.UserId });
+                });
+
+            migrationBuilder.CreateTable(
                 name: "QuizQuestions",
                 columns: table => new
                 {
@@ -400,6 +412,9 @@ namespace Studyo.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "DisciplinaUsers");
 
             migrationBuilder.DropTable(
                 name: "Materials");
