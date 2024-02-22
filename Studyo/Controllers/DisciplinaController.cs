@@ -53,5 +53,14 @@ namespace Studyo.Controllers
         }
 
 
+
+        public IActionResult showChapterByAlgo(int idChapter)
+        {
+            Chapter chap = _context.Chapters.Where(c => c.Id == idChapter).First();
+
+            return View(chap);
+        }
+
+
     }
 }
