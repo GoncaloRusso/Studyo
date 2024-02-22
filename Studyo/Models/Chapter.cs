@@ -13,8 +13,10 @@
         [Required]
         public string Name { get; set; }
 
-        [Required]
-        public int SubjectId { get; set; }
+        // Change from array to single instance
+        [NotMapped] public Material Normal { get; set; }
+
+        [Required] public int SubjectId { get; set; }
 
         [ForeignKey("SubjectId")]
         public virtual Subject Subject { get; set; }

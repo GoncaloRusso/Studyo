@@ -41,7 +41,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-//�C este c�digo para tornar a p�gina de login como a p�gina default
+//Comentar este codigo para tornar a pagina de login como a pagina default
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}"

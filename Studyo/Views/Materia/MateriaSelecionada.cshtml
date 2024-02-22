@@ -4,13 +4,16 @@
     ViewData["Title"] = Model.Name;
 }
 
-<div class="text-center">
+    <div class="text-center">
     <h1 class="display-4">@Model.Name</h1>
     <p>Capítulos:</p>
-    <ul>
-        @foreach (var chapter in Model.Chapters)
-        {
-            <li>@chapter.Name</li>
-        }
-    </ul>
+    <select>
+    <option value="Escolher capítulo">Escolher capítulo</option>
+    @foreach (var chapter in Model.Chapters)
+    {
+        <option>@chapter.Name</option>
+        <div>@chapter.Normal.Conteudo</div>
+    }
+    </select>
 </div>
+
