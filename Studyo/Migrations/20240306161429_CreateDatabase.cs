@@ -77,31 +77,6 @@ namespace Studyo.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "QuizQuestions",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Question = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_QuizQuestions", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Quizzes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Quizzes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Subjects",
                 columns: table => new
                 {
@@ -256,6 +231,7 @@ namespace Studyo.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SubjectId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -300,28 +276,61 @@ namespace Studyo.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Materials",
+                name: "Quizzes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ChapterId = table.Column<int>(type: "int", nullable: false),
-                    QuizId = table.Column<int>(type: "int", nullable: false)
+                    ChapterId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Materials", x => x.Id);
+                    table.PrimaryKey("PK_Quizzes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Materials_Chapters_ChapterId",
+                        name: "FK_Quizzes_Chapters_ChapterId",
                         column: x => x.ChapterId,
                         principalTable: "Chapters",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "QuizQuestions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Question = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    QuizId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_QuizQuestions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Materials_Quizzes_QuizId",
+                        name: "FK_QuizQuestions_Quizzes_QuizId",
                         column: x => x.QuizId,
                         principalTable: "Quizzes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "QuizQuestionAnswers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Answer = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    isCorrectAnswer = table.Column<bool>(type: "bit", nullable: false),
+                    QuizQuestionId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_QuizQuestionAnswers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_QuizQuestionAnswers_QuizQuestions_QuizQuestionId",
+                        column: x => x.QuizQuestionId,
+                        principalTable: "QuizQuestions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -371,14 +380,19 @@ namespace Studyo.Migrations
                 column: "SubjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Materials_ChapterId",
-                table: "Materials",
-                column: "ChapterId");
+                name: "IX_QuizQuestionAnswers_QuizQuestionId",
+                table: "QuizQuestionAnswers",
+                column: "QuizQuestionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Materials_QuizId",
-                table: "Materials",
+                name: "IX_QuizQuestions_QuizId",
+                table: "QuizQuestions",
                 column: "QuizId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Quizzes_ChapterId",
+                table: "Quizzes",
+                column: "ChapterId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Workshops_AuthorId",
@@ -417,10 +431,7 @@ namespace Studyo.Migrations
                 name: "DisciplinaUsers");
 
             migrationBuilder.DropTable(
-                name: "Materials");
-
-            migrationBuilder.DropTable(
-                name: "QuizQuestions");
+                name: "QuizQuestionAnswers");
 
             migrationBuilder.DropTable(
                 name: "Workshops");
@@ -429,10 +440,7 @@ namespace Studyo.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Chapters");
-
-            migrationBuilder.DropTable(
-                name: "Quizzes");
+                name: "QuizQuestions");
 
             migrationBuilder.DropTable(
                 name: "Users");
@@ -441,10 +449,16 @@ namespace Studyo.Migrations
                 name: "WorkshopContents");
 
             migrationBuilder.DropTable(
-                name: "Subjects");
+                name: "Quizzes");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Chapters");
+
+            migrationBuilder.DropTable(
+                name: "Subjects");
         }
     }
 }

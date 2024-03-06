@@ -1,7 +1,8 @@
-﻿namespace Studyo.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Studyo.Models
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("AnkiCards")]
     public class AnkiCard

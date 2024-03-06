@@ -255,6 +255,10 @@ namespace Studyo.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -282,7 +286,7 @@ namespace Studyo.Migrations
                     b.ToTable("DisciplinaUsers");
                 });
 
-            modelBuilder.Entity("Studyo.Models.Material", b =>
+            modelBuilder.Entity("Studyo.Models.Quiz", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -293,31 +297,9 @@ namespace Studyo.Migrations
                     b.Property<int>("ChapterId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("QuizId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ChapterId");
-
-                    b.HasIndex("QuizId");
-
-                    b.ToTable("Materials");
-                });
-
-            modelBuilder.Entity("Studyo.Models.Quiz", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.HasKey("Id");
 
                     b.ToTable("Quizzes");
                 });
@@ -334,9 +316,39 @@ namespace Studyo.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("QuizId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("QuizId");
+
                     b.ToTable("QuizQuestions");
+                });
+
+            modelBuilder.Entity("Studyo.Models.QuizQuestionAnswer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Answer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QuizQuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isCorrectAnswer")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuizQuestionId");
+
+                    b.ToTable("QuizQuestionAnswers");
                 });
 
             modelBuilder.Entity("Studyo.Models.Subject", b =>
@@ -477,7 +489,7 @@ namespace Studyo.Migrations
                     b.Navigation("Subject");
                 });
 
-            modelBuilder.Entity("Studyo.Models.Material", b =>
+            modelBuilder.Entity("Studyo.Models.Quiz", b =>
                 {
                     b.HasOne("Studyo.Models.Chapter", "Chapter")
                         .WithMany()
@@ -485,15 +497,29 @@ namespace Studyo.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Chapter");
+                });
+
+            modelBuilder.Entity("Studyo.Models.QuizQuestion", b =>
+                {
                     b.HasOne("Studyo.Models.Quiz", "Quiz")
                         .WithMany()
                         .HasForeignKey("QuizId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Chapter");
-
                     b.Navigation("Quiz");
+                });
+
+            modelBuilder.Entity("Studyo.Models.QuizQuestionAnswer", b =>
+                {
+                    b.HasOne("Studyo.Models.QuizQuestion", "QuizQuestion")
+                        .WithMany()
+                        .HasForeignKey("QuizQuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("QuizQuestion");
                 });
 
             modelBuilder.Entity("Studyo.Models.Workshop", b =>

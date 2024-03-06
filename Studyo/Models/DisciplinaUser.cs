@@ -1,9 +1,9 @@
-﻿namespace Studyo.Models
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Studyo.Models
 {
-    using Microsoft.EntityFrameworkCore;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("DisciplinaUsers")]
     [PrimaryKey(nameof(DisciplinaId), nameof(UserId))]

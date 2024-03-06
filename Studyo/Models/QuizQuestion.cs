@@ -1,20 +1,22 @@
-﻿namespace Studyo.Models
-{
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace Studyo.Models
+{
     [Table("QuizQuestions")]
     public class QuizQuestion
     {
         [Key]
-        [ForeignKey("Quiz")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
         public string Question { get; set; }
 
-        [NotMapped]
-        public Dictionary<bool, string> Answers { get; set; }
+        [Required]
+        public int QuizId { get; set; }
+
+        [ForeignKey("QuizId")]
+        public virtual Quiz Quiz { get; set; }
     }
 }
