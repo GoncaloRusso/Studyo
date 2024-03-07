@@ -1,0 +1,216 @@
+﻿@model Studyo.Models.Pomodoro
+
+<style>
+    #mySidenav a {
+        position: fixed;
+        right: -30%;
+        height: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: 0.3s;
+        padding: 15px;
+        width: 30%;
+        text-decoration: none;
+        font-size: 20px;
+        color: white;
+        background: rgba(145,123,238,0.9);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #about {
+        top: 0px;
+    }
+
+    p {
+        text-align: center;
+        font-size: 60px;
+        margin-top: 0px;
+    }
+
+
+
+    #sidenavToggle {
+        position: fixed;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 30px;
+        height: 50px;
+        background: rgba(145,123,238,0.9);
+        border-radius: 50% 0 0 50%;
+        cursor: pointer;
+        transition: right 0.3s;
+    }
+
+        #sidenavToggle:before {
+            content: "<";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            color: white;
+        }
+
+        #sidenavToggle.open:before {
+            content: ">";
+        }
+
+    #startPomodoro {
+        display: block;
+        width: 100%;
+        background-color: #700000;
+        color: white;
+        padding: 10px;
+        margin-top: 20px;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<div id="mySidenav" class="sidenav">
+    <a href="#" id="about">
+        <h3 style="text-align: center; color: black;">Pomodoro</h3>
+        <h5 style="text-align: center; color: black;">Escolher tempo de estudo</h5>
+        <select id="studyTimeDropdown" onchange="saveStudyTime(this.value)">
+            <option value="0">0</option>
+            <option value="15">15</option>
+            <option value="25">25</option>
+            <option value="30">30</option>
+            <option value="45">45</option>
+            <option value="60">60</option>
+        </select>
+
+        <h5 style="text-align: center; color: black;">Escolher tempo de descanço</h5>
+        <select id="restTimeDropdown" onchange="saveRestTime(this.value)">
+            <option value="0">0</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+        </select>
+        <h5 style="text-align: center; color: black;">Escolher quantidade de ciclos</h5>
+        <select id="cyclesDropdown" onchange="saveCycles(this.value)">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+
+        <h1 id="timer" style="font-size: 2em; color: white;">@Model.StudyTime:00</h1>
+        <h5 id="cycles" style="text-align: center; color: white;">0/@Model.Cycles Ciclos Concluidos</h5>
+        <button id="startPomodoro">Iniciar Pomodoro</button>
+        <p id="demo"></p>
+    </a>
+</div>
+<div id="sidenavToggle"></div>
+<script>
+    var sidenav = document.getElementById('mySidenav');
+    var toggle = document.getElementById('sidenavToggle');
+
+    function openNav() {
+        sidenav.classList.add('open');
+        toggle.style.right = '30%';
+    }
+    function closeNav() {
+        sidenav.classList.remove('open');
+        toggle.style.right = '0';
+    }
+    toggle.addEventListener('click', function (event) {
+        if (toggle.classList.contains('open')) {
+            closeNav();
+            document.querySelector('#mySidenav a').style.right = '-30%';
+            toggle.classList.remove('open');
+        } else {
+            openNav();
+            document.querySelector('#mySidenav a').style.right = '0%';
+            toggle.classList.add('open');
+        }
+    });
+</script>
+<script>
+    function saveStudyTime(selectedValue) {
+        $.post("/Pomodoro/UpdateStudyTime", { studyTime: selectedValue }, function (data) {
+            if (data.success) {
+                var minutes = selectedValue.padStart(2, '0');
+                document.getElementById('timer').textContent = minutes + ':00';
+            }
+        });
+    }
+
+    function saveRestTime(selectedValue) {
+        $.post("/Pomodoro/UpdateRestTime", { restTime: selectedValue }, function (data) {
+            if (data.success) {
+                // Neste caso, não precisamos atualizar a view, pois o tempo de descanso não é exibido na página.
+            }
+        });
+    }
+
+    function saveCycles(selectedValue) {
+        $.post("/Pomodoro/UpdateCycles", { cycles: selectedValue }, function (data) {
+            if (data.success) {
+                // Atualiza o número de ciclos na View
+                document.getElementById('cycles').textContent = '0/' + selectedValue + ' Ciclos Concluidos';
+            }
+        });
+    }
+
+    $("#startPomodoro").click(function () {
+        var studyTime = $("#studyTimeDropdown").val();
+        var restTime = $("#restTimeDropdown").val();
+        var cycles = $("#cyclesDropdown").val();
+
+        // Desativa o botão "Iniciar Pomodoro"
+        $(this).prop("disabled", true);
+
+        // Reinicia o contador de ciclos
+        document.getElementById('cycles').textContent = '0/' + cycles + ' Ciclos Concluidos';
+
+        // Converta o tempo de estudo e descanso para milissegundos
+        var studyTimeMs = studyTime * 60 * 1000;
+        var restTimeMs = restTime * 60 * 1000;
+
+        var isStudyTime = true;
+        var cyclesCompleted = 0;
+
+        var timer = setInterval(function () {
+            if (isStudyTime) {
+                studyTimeMs -= 1000;
+                if (studyTimeMs <= 0) {
+                    isStudyTime = false;
+                    studyTimeMs = studyTime * 60 * 1000; // Reset the study time
+                }
+            } else {
+                restTimeMs -= 1000;
+                if (restTimeMs <= 0) {
+                    cyclesCompleted++;
+                    document.getElementById('cycles').textContent = cyclesCompleted + '/' + cycles + ' Ciclos Concluidos';
+                    if (cyclesCompleted < cycles) {
+                        isStudyTime = true;
+                        restTimeMs = restTime * 60 * 1000; // Reset the rest time
+                    } else {
+                        clearInterval(timer);
+                        // Reativa o botão "Iniciar Pomodoro" quando o cronômetro terminar
+                        $("#startPomodoro").prop("disabled", false);
+                    }
+                }
+            }
+
+            // Atualize o cronômetro na página
+            var remainingTimeMs = isStudyTime ? studyTimeMs : restTimeMs;
+            var minutes = Math.floor((remainingTimeMs % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((remainingTimeMs % (1000 * 60)) / 1000);
+            document.querySelector('#timer').textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        }, 1000);
+    });
+</script>

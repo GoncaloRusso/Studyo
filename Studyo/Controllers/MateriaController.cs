@@ -23,6 +23,16 @@ namespace Studyo.Controllers
 
             return View(materia);
         }
+        [HttpPost]
+        public IActionResult ConteudoEscolhido(int id)
+        {
+            // Acesse a base de dados para obter o capítulo pelo ID
+            var chapter = _context.Chapters.Where(c => c.Id == id).FirstOrDefault();
+
+            if (chapter == null) { return NotFound(); }
+
+            return View(chapter);
+        }
 
     }
 }

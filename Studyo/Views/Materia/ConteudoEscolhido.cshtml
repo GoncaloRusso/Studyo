@@ -1,0 +1,82 @@
+﻿@model Studyo.Models.Chapter
+
+@{
+    ViewData["Title"] = Model.Name;
+    var pomodoro = new Studyo.Models.Pomodoro();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .textContainer {
+            text-align: justify;
+        }
+
+        .botao_simples {
+            display: inline-block; 
+            width: 200px;
+            height: 40px;
+            margin: 20px 10px; 
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .botao_simples:hover,
+        .botao_simples:active {
+            color: white;
+            border-color: white;
+            text-decoration: none;
+        }
+        /* No seu arquivo CSS externo */
+        .textarea-estilo {
+            width: 100%;
+            height: 350px;
+            overflow-y: scroll;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            resize: none !important;
+        }
+
+
+
+        .buttons{
+            text-align: center; 
+        }
+    </style>
+    <script>
+        <textarea readonly class="textarea-estilo" >
+        @Html.Raw(Model.Content)
+            </textarea>
+    </script>
+    </head>
+    <body>
+    <div class="text-center">
+        <h1 class="display-4">@Model.Name</h1>
+
+        <div class="textContainer">
+<textarea readonly class="textarea-estilo">
+                @Html.Raw(Model.Content)
+</textarea>
+
+
+        </div>
+    </div>
+    <div class="buttons"> 
+    <a class="botao_simples" asp-controller="" asp-action="">
+        Seguir para quiz
+    </a>
+    <a class="botao_simples" asp-controller="" asp-action="">
+        Seguir para Anki Cards
+    </a>
+    </div>
+    </body>
+    
+</html>
+@await Html.PartialAsync("/Views/Pomodoro/Index.cshtml", pomodoro)
