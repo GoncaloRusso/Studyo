@@ -27,7 +27,7 @@ namespace Studyo.Controllers
         public async Task<IActionResult> AlgoritmoChapterId()
         {
             IdentityUser user = await _userManger.GetUserAsync(User);
-            List<DisciplinaUser> currentUserSubjects = _context.DisciplinaUsers.Where(d => d.UserId == user.Id).ToList();
+            List<UserSubjects> currentUserSubjects = _context.UsersSubjects.Where(d => d.UserId == user.Id).ToList();
 
             int idChapter;
             
@@ -36,7 +36,7 @@ namespace Studyo.Controllers
             {
                 List<Chapter> listChaptersOfSubject = new List<Chapter>();
 
-                foreach(KeyValuePair<Chapter, bool> t in currentUserSubjects.OrderBy(s => s.percentagemFim()).First().MaterialComp)
+                foreach(KeyValuePair<Chapter, bool> t in currentUserSubjects.OrderBy(s => s.calculateCompletion()).First().CompletedChapters)
                 {
                     if(t.Value == false)
                     {

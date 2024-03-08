@@ -26,11 +26,11 @@ namespace Studyo.Controllers
 
             if (materia == null) { return NotFound(); }
             /*
-                        var discUser = _context.DisciplinaUsers.Where(d => d.UserId == user.Id && d.DisciplinaId == id).FirstOrDefault();
+                        var discUser = _context.UserSubjectss.Where(d => d.UserId == user.Id && d.DisciplinaId == id).FirstOrDefault();
 
                         if (discUser == null)
                         {
-                            DisciplinaUser du = new DisciplinaUser();
+                            UserSubjects du = new UserSubjects();
 
                             du.DisciplinaId = id;
 
@@ -43,7 +43,7 @@ namespace Studyo.Controllers
                             }
                             du.MaterialComp = mc;
 
-                            _context.DisciplinaUsers.Add(du);
+                            _context.UserSubjectss.Add(du);
 
                         }*/
 

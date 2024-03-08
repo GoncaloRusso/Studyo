@@ -12,7 +12,7 @@ using Studyo.Data;
 namespace Studyo.Migrations
 {
     [DbContext(typeof(StudyoDbContext))]
-    [Migration("20240306161906_PopulateDatabase")]
+    [Migration("20240308153622_PopulateDatabase")]
     partial class PopulateDatabase
     {
         /// <inheritdoc />
@@ -276,19 +276,6 @@ namespace Studyo.Migrations
                     b.ToTable("Chapters");
                 });
 
-            modelBuilder.Entity("Studyo.Models.DisciplinaUser", b =>
-                {
-                    b.Property<int>("DisciplinaId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("DisciplinaId", "UserId");
-
-                    b.ToTable("DisciplinaUsers");
-                });
-
             modelBuilder.Entity("Studyo.Models.Quiz", b =>
                 {
                     b.Property<int>("Id")
@@ -369,6 +356,19 @@ namespace Studyo.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Subjects");
+                });
+
+            modelBuilder.Entity("Studyo.Models.UserSubjects", b =>
+                {
+                    b.Property<int>("SubjetdId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("SubjetdId", "UserId");
+
+                    b.ToTable("UsersSubjects");
                 });
 
             modelBuilder.Entity("Studyo.Models.Workshop", b =>
