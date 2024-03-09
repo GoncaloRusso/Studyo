@@ -18,5 +18,8 @@ namespace Studyo.Models
 
         [ForeignKey("QuizId")]
         public virtual Quiz Quiz { get; set; }
+
+        [NotMapped]
+        public List<QuizQuestionAnswer> Answers { get; set; }
     }
 }

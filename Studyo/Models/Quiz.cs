@@ -15,5 +15,8 @@ namespace Studyo.Models
 
         [ForeignKey("ChapterId")]
         public virtual Chapter Chapter { get; set; }
+
+        [NotMapped]
+        public List<QuizQuestion> QuizQuestions { get; set; }
     }
 }

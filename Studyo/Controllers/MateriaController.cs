@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Studyo.Data;
 using Studyo.Models;
 
@@ -51,9 +52,20 @@ namespace Studyo.Controllers
 
             return View(materia);
         }
-        public IActionResult QuizSelecionado()
+        public IActionResult QuizSelecionado(int id)
         {
-            return View();
+            var quizz = _context.Quizzes.Where(q => q.ChapterId == id).FirstOrDefault();
+            if (quizz == null) { return NotFound(); }
+
+            quizz.QuizQuestions = _context.QuizQuestions.Where(qq => qq.QuizId == quizz.Id).ToList();
+            if (quizz.QuizQuestions.IsNullOrEmpty()) { return NotFound(); }
+
+            foreach( QuizQuestion qq in quizz.QuizQuestions)
+            {
+                qq.Answers = _context.QuizQuestionAnswers.Where(qqa => qqa.QuizQuestionId == qq.Id).ToList();
+            }
+
+            return View(quizz);
         }
 
 
