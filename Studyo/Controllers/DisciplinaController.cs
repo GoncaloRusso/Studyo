@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Studyo.Data;
 using Studyo.Models;
 
@@ -18,6 +19,15 @@ namespace Studyo.Controllers
             _userManger = userManager;
         }
 
+        public async Task<IActionResult> GetSubjectsAsync()
+        {
+            var subjects = await _context.Subjects.ToListAsync();
+
+            if (subjects == null || !subjects.Any()) { return NotFound(); }
+
+            return View(subjects);
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -30,15 +40,15 @@ namespace Studyo.Controllers
             List<UserSubjects> currentUserSubjects = _context.UsersSubjects.Where(d => d.UserId == user.Id).ToList();
 
             int idChapter;
-            
+
             if (currentUserSubjects.Count == 0) { idChapter = -1; }
             else
             {
                 List<Chapter> listChaptersOfSubject = new List<Chapter>();
 
-                foreach(KeyValuePair<Chapter, bool> t in currentUserSubjects.OrderBy(s => s.calculateCompletion()).First().CompletedChapters)
+                foreach (KeyValuePair<Chapter, bool> t in currentUserSubjects.OrderBy(s => s.calculateCompletion()).First().CompletedChapters)
                 {
-                    if(t.Value == false)
+                    if (t.Value == false)
                     {
                         listChaptersOfSubject.Add(t.Key);
                     }
