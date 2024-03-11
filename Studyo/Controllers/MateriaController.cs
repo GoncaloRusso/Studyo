@@ -26,6 +26,29 @@ namespace Studyo.Controllers
             materia.Chapters = _context.Chapters.Where(c => c.SubjectId == id).ToList();
 
             if (materia == null) { return NotFound(); }
+            /*
+                        var discUser = _context.UserSubjectss.Where(d => d.UserId == user.Id && d.DisciplinaId == id).FirstOrDefault();
+
+                        if (discUser == null)
+                        {
+                            UserSubjects du = new UserSubjects();
+
+                            du.DisciplinaId = id;
+
+                            du.UserId = user.Id;
+
+                            Dictionary<Chapter, bool> mc = new Dictionary<Chapter, bool>();
+                            foreach (Chapter c in materia.Chapters)
+                            {
+                                mc.Add(c, false);
+                            }
+                            du.MaterialComp = mc;
+
+                            _context.UserSubjectss.Add(du);
+
+                        }*/
+
+
 
             return View(materia);
         }
