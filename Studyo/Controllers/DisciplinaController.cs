@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Studyo.Data;
 using Studyo.Models;
 
@@ -9,7 +8,6 @@ namespace Studyo.Controllers
 {
     public class DisciplinaController : Controller
     {
-
         private readonly StudyoDbContext _context;
         private readonly UserManager<IdentityUser> _userManger;
 
@@ -19,55 +17,44 @@ namespace Studyo.Controllers
             _userManger = userManager;
         }
 
-        [HttpGet("get-subjects")]
-        public List<Subject> GetSubjects()
+        public async Task<IActionResult> Index(int id)
         {
-            return _context.Subjects.ToList();
+            IdentityUser? user = await _userManger.GetUserAsync(User);
+
+            // Acesse a base de dados para obter a matéria pelo ID
+            var materia = _context.Subjects.Where(c => c.Id == id).FirstOrDefault();
+            materia.Chapters = _context.Chapters.Where(c => c.SubjectId == id).ToList();
+
+            if (materia == null) { return NotFound(); }
+
+            return View(materia);
         }
 
-        public async Task<IActionResult> GetSubjectsAsync()
+        public IActionResult Quizz(int id)
         {
-            var subjects = await _context.Subjects.ToListAsync();
+            var quizz = _context.Quizzes.Where(q => q.ChapterId == id).FirstOrDefault();
+            if (quizz == null) { return NotFound(); }
 
-            if (subjects == null || !subjects.Any()) { return NotFound(); }
+            quizz.QuizQuestions = _context.QuizQuestions.Where(qq => qq.QuizId == quizz.Id).ToList();
+            if (quizz.QuizQuestions.IsNullOrEmpty()) { return NotFound(); }
 
-            return View(subjects);
-        }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        [Authorize]
-        public async Task<IActionResult> AlgoritmoChapterId()
-        {
-            IdentityUser user = await _userManger.GetUserAsync(User);
-            List<UserSubjects> currentUserSubjects = _context.UsersSubjects.Where(d => d.UserId == user.Id).ToList();
-
-            int idChapter;
-
-            if (currentUserSubjects.Count == 0) { idChapter = -1; }
-            else
+            foreach( QuizQuestion qq in quizz.QuizQuestions)
             {
-                List<Chapter> listChaptersOfSubject = new List<Chapter>();
-
-                foreach (KeyValuePair<Chapter, bool> t in currentUserSubjects.OrderBy(s => s.calculateCompletion()).First().CompletedChapters)
-                {
-                    if (t.Value == false)
-                    {
-                        listChaptersOfSubject.Add(t.Key);
-                    }
-                }
-
-                idChapter = listChaptersOfSubject.OrderBy(c => c.Id).First().Id;
+                qq.Answers = _context.QuizQuestionAnswers.Where(qqa => qqa.QuizQuestionId == qq.Id).ToList();
             }
 
-            if (idChapter == -1) { return NotFound(); }
+            return View(quizz);
+        }
 
-            Chapter chap = _context.Chapters.Where(c => c.Id == idChapter).First();
+        [HttpPost]
+        public IActionResult Content(int id)
+        {
+            // Acesse a base de dados para obter o capítulo pelo ID
+            var chapter = _context.Chapters.Where(c => c.Id == id).FirstOrDefault();
 
-            return View(chap);
+            if (chapter == null) { return NotFound(); }
+
+            return View(chapter);
         }
     }
 }
