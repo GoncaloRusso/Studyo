@@ -1,5 +1,3 @@
-USE StudyoDB;
-
 -- Insert Subjects
 INSERT INTO Subjects (Name) VALUES
 	('Antropologia'),

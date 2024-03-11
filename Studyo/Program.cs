@@ -21,6 +21,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => {
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+// add swagger later on
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -41,7 +42,6 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-//Comentar este codigo para tornar a pagina de login como a pagina default
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}"

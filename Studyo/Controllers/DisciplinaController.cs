@@ -19,6 +19,12 @@ namespace Studyo.Controllers
             _userManger = userManager;
         }
 
+        [HttpGet("get-subjects")]
+        public List<Subject> GetSubjects()
+        {
+            return _context.Subjects.ToList();
+        }
+
         public async Task<IActionResult> GetSubjectsAsync()
         {
             var subjects = await _context.Subjects.ToListAsync();
