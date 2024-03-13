@@ -1,0 +1,1 @@
+c['81']=[['82',"AlgoritmoChapterId Method","topic_0000000000000042.html",0],['83',"GetSubjects Method","topic_000000000000003F.html",0],['84',"GetSubjectsAsync Method","topic_0000000000000040.html",0],['85',"Index Method","topic_0000000000000041.html",0]];
