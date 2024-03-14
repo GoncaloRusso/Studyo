@@ -23,21 +23,21 @@ namespace Studyo.Controllers
         [HttpPost]
         public IActionResult UpdateStudyTime(int studyTime)
         {
-            pomodoro.SetStudyTime(studyTime);
+            pomodoro.StudyTime = studyTime;
             return Json(new { success = true });
         }
 
         [HttpPost]
         public IActionResult UpdateRestTime(int restTime)
         {
-            pomodoro.SetRestTime(restTime);
+            pomodoro.RestTime = restTime;
             return Json(new { success = true });
         }
 
         [HttpPost]
         public IActionResult UpdateCycles(byte cycles)
         {
-            pomodoro.SetCycles(cycles);
+            pomodoro.Cycles = cycles;
             return Json(new { success = true });
         }
     }

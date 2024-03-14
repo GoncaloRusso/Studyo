@@ -1,5 +1,9 @@
 {
   "dependencies": {
+    "mssql2": {
+      "restored": true,
+      "restoreTime": "2024-03-12T02:55:10.6355716Z"
+    },
     "secrets.user": {
       "restored": true,
       "restoreTime": "2024-03-11T21:42:17.1505871Z"
