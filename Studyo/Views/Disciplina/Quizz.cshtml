@@ -30,6 +30,17 @@
     .buttons {
         text-align: center;
     }
+
+    h1 {
+        padding-top:100px;
+        padding-bottom: 20px;
+        text-align: center;
+    }
+
+    input[type="radio"] {
+        margin-top: 20px;
+    }
+
 </style>
 
 <div>
@@ -39,7 +50,10 @@
 
         @foreach (var answer in item.Answers)
         {
-            <p> - @Html.DisplayFor(modelItem => answer.Answer)</p>
+            <input type="radio" id="@answer.Answer" name="@item.Question" value="@answer.Answer">
+            <label for="@answer.Answer">@Html.DisplayFor(modelItem => answer.Answer)</label>
+
+            <br>
         }
     }
 
