@@ -9,7 +9,7 @@ using Studyo.Models;
 
 namespace StudyoTests
 {
-    public class FifthSprint
+    public class StudyoTester
     {
         [Fact]
         public void AccessChapterQuiz()
@@ -28,6 +28,14 @@ namespace StudyoTests
             pomodoro.DateTime = DateTime.Now;
 
             pomodoro.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void ShuffleTest()
+        {
+            DisciplinaController disciplinaController = new DisciplinaController(null, null);
+
+            
         }
 
     }

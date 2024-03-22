@@ -1,0 +1,80 @@
+﻿@model Studyo.Models.Quiz
+
+@{
+    ViewData["Title"] = "Quiz";
+}
+
+<style>
+
+    .botao_simples {
+        display: inline-block;
+        width: 200px;
+        height: 40px;
+        margin: 20px 10px;
+        background-color: transparent;
+        color: white;
+        border: 2px solid white;
+        text-align: center;
+        line-height: 40px;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+        .botao_simples:hover,
+        .botao_simples:active {
+            color: white;
+            border-color: white;
+            text-decoration: none;
+        }
+
+    .buttons {
+        text-align: center;
+    }
+</style>
+
+<script>
+    const numberOfQuestion = () => {
+        return document.querySelectorAll("input[type='radio']").length / 4;
+    }
+    
+    const handleSubmit = () => {
+        const answers = document.querySelectorAll("input[type='radio']:checked");
+
+        let counter = 0;
+
+        answers.forEach((answer) => (answer.value === "True") ? counter += 1 : 0);
+
+        const score = Math.round(counter / numberOfQuestion() * 100);
+
+        let div = document.getElementById("quiz-div");
+        while (div.firstChild) {
+            div.removeChild(div.firstChild);
+        }
+
+        let p = document.createElement("h1");
+        p.innerHTML = "Pontuação: " + score + "%";
+
+        div.appendChild(p);
+    }
+
+</script>
+
+<div>
+    <div id="quiz-div">
+        @foreach (var question in Model.QuizQuestions)
+        {
+            
+            <h1>@Html.DisplayFor(modelItem => question.Question)</h1>
+
+            @foreach (var answer in question.Answers)
+            {
+                <input type="radio" itemid="@answer.Id" name="@question.Id" value="@answer.isCorrectAnswer.ToString()"/>
+                <label>- @Html.DisplayFor(modelItem => answer.Answer)</label><br />
+            }
+        }
+    </div>
+    <div class="buttons">
+        <button class="botao_simples" onclick="window.history.back()">Voltar</button>
+        <button id="" class="botao_simples" onclick="handleSubmit()">Submeter</button>
+    </div>
+</div>

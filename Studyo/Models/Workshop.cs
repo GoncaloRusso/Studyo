@@ -19,12 +19,6 @@ namespace Studyo.Models
         public WorkshopContent Content { get; set; }
 
         [Required]
-        public User Author { get; set; }
-
-        [NotMapped]
-        public List<User> Participants { get; set; }
-
-        [Required]
         public DateTime Created { get; set; }
 
         [Required]

@@ -4,25 +4,23 @@
     ViewData["Title"] = Model.Name;
 }
 
-<script>
-    function redirectToView() {
-        var selectedId = document.getElementById("dropdownMenu").value;
-        window.location.href = "/Disciplina/Content?id=" + selectedId;
-    }
-</script>
-
 <div class="text-center">
     <h1 class="display-4">@Model.Name</h1>
-    <p>Capítulos:</p>
     <form action="@Url.Action("Content", "Disciplina")" method="post">
         <select id="dropdownMenu" name="id">
-            <option value="Escolher capítulo">Escolher capítulo</option>
+            <option value="default">Selecione um Modulo</option>
             @foreach (var chapter in Model.Chapters)
             {
-                <option value="@chapter.Id">@chapter.Name</option>
+                <option value="@chapter.Id" >@chapter.Name</option>
             }
         </select>
-        <input type="submit" value="Submit">
     </form>
 
 </div>
+
+<script>
+    document.getElementById("dropdownMenu").addEventListener("change", function () {
+        var contentId = this.value; // Get the selected chapter ID
+        window.location.href = "/Disciplina/Content?id=" + contentId; // Navigate to the controller action
+    });
+</script>

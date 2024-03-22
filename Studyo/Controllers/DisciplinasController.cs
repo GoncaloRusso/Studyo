@@ -9,7 +9,6 @@ namespace Studyo.Controllers
 {
     public class DisciplinasController : Controller
     {
-
         private readonly StudyoDbContext _context;
         private readonly UserManager<IdentityUser> _userManger;
 
