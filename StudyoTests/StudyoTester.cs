@@ -3,8 +3,6 @@ using System.Reflection.Metadata;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Studyo.Controllers;
-using Studyo.Data;
 using Studyo.Models;
 
 namespace StudyoTests
