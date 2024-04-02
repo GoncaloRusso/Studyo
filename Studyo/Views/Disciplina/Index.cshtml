@@ -3,26 +3,62 @@
 @{
     ViewData["Title"] = Model.Name;
 }
-
-<script>
-    function redirectToView() {
-        var selectedId = document.getElementById("dropdownMenu").value;
-        window.location.href = "/Disciplina/Content?id=" + selectedId;
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        color: white;
     }
-</script>
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: black;
+    }
+</style>
 
 <div class="text-center">
     <h1 class="display-4">@Model.Name</h1>
-    <p>Capítulos:</p>
-    <form action="@Url.Action("Content", "Disciplina")" method="post">
-        <select id="dropdownMenu" name="id">
-            <option value="Escolher capítulo">Escolher capítulo</option>
-            @foreach (var chapter in Model.Chapters)
-            {
-                <option value="@chapter.Id">@chapter.Name</option>
-            }
-        </select>
-        <input type="submit" value="Submit">
-    </form>
+    
 
 </div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Capítulos
+            </th>
+            <th>
+                Ações
+            </th>
+            <th>
+                Quiz Completo?
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Chapters)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a style="color:white" asp-action="Content" asp-route-id="@item.Id">Matéria</a> |
+                    <a style="color:white" asp-action="Quizz" asp-route-id="@item.Id">Seguir para Quiz</a> |
+                    <a style="color:white" asp-action=" AnkiCards" asp-route-id="@item.Id">Seguir para Anki Cards</a>
+                </td>
+                <td>
+                    Adicionar S/N
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

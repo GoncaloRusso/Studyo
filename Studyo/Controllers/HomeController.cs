@@ -18,7 +18,7 @@ namespace Studyo.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Workshops()
         {
             return View();
         }

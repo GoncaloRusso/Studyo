@@ -34,9 +34,13 @@ namespace Studyo.Controllers
             return View(subjects);
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var subjects = await _context.Subjects.ToListAsync();
+
+            if (subjects == null || !subjects.Any()) { return NotFound(); }
+
+            return View(subjects);
         }
 
         [Authorize]
