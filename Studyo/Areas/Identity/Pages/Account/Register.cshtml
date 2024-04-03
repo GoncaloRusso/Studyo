@@ -9,43 +9,123 @@
     <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js"></script>
 </header>
 
+<style>
+    .submitBtn {
+        border: 3px solid green;
+        border-radius: 0;
+        color: black;
+        background-color: lightgreen; /* Added white background color */
+        padding: 10px 20px;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        transition: color 150ms ease-in-out;
+        cursor: pointer;
+        margin-right: 10px;
+        margin-top: 20px;
+        border-radius: 12px;
+    }
+
+        .submitBtn::after {
+            content: '';
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 100%;
+            background: green;
+            z-index: -1;
+            transition: width 150ms ease-in-out;
+        }
+
+        .submitBtn:hover {
+            color: #fff;
+        }
+
+            .submitBtn:hover::after {
+                width: 110%;
+            }
+
+    .googleBtn {
+        border: 3px solid #4285F4;
+        border-radius: 0;
+        color: black;
+        background-color: lightblue; /* Added white background color */
+        padding: 10px 20px;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        transition: color 150ms ease-in-out;
+        cursor: pointer;
+        margin-top: 20px;
+        margin-right: 0;
+        margin-left: 10px;
+        border-radius: 12px;
+    }
+
+        .googleBtn::after {
+            content: '';
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 100%;
+            background: #4285F4;
+            z-index: -1;
+            transition: width 150ms ease-in-out;
+        }
+
+        .googleBtn:hover {
+            color: #fff;
+        }
+
+            .googleBtn:hover::after {
+                width: 110%;
+            }
+
+    
+</style>
+
 <h1>@ViewData["Title"]</h1>
 <div>
-    <div>
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div>
-                <label asp-for="Input.Email">Email</label>
-                <input asp-for="Input.Email" class="form-control" autocomplete="email" aria-required="true" placeholder="name@example.com" />
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div>
-                <label asp-for="Input.Username">Username</label>
-                <input asp-for="Input.Username" class="form-control" autocomplete="username" aria-required="true" placeholder="Username" />
-                <span asp-validation-for="Input.Username" class="text-danger"></span>
-            </div>
-            <div>
-                <label asp-for="Input.Password">Password</label>
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Password" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div>
-                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Password" />
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <div>
-                <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-            </div>
-
-        </form>
+    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <h2>Create a new account.</h2>
+        <hr />
+        <div asp-validation-summary="ModelOnly" style="color:yellow"></div>
         <div>
-            <button id="googleSignUp" type="button" class="w-100 btn btn-lg btn-primary">Sign up with Google</button>
+            <label asp-for="Input.Email">Email</label>
+            <input asp-for="Input.Email" class="form-control" autocomplete="email" aria-required="true" placeholder="name@example.com" />
+            <span asp-validation-for="Input.Email" style="color:yellow"></span>
         </div>
-    </div>
+        <div>
+            <label asp-for="Input.Username">Username</label>
+            <input asp-for="Input.Username" class="form-control" autocomplete="username" aria-required="true" placeholder="Username" />
+            <span asp-validation-for="Input.Username" style="color:yellow"></span>
+        </div>
+        <div>
+            <label asp-for="Input.Password">Password</label>
+            <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Password" />
+            <span asp-validation-for="Input.Password" style="color:yellow"></span>
+        </div>
+        <div>
+            <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+            <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Password" />
+            <span asp-validation-for="Input.ConfirmPassword" style="color:yellow"></span>
+        </div>
+        <div class="button-container">
+            <button id="registerSubmit" class="submitBtn">Register</button>
+            
+            <button id="googleSignIn" type="button" class="googleBtn">Sign in with Google</button>
+        </div>
+
+    </form>
 </div>
+
+
 
 
 <script type="module">

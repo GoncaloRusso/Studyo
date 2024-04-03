@@ -4,6 +4,86 @@
 @{
     ViewData["Title"] = "Login";
 }
+<style>
+    .submitBtn {
+        border: 3px solid green;
+        border-radius: 0;
+        color: black;
+        background-color: lightgreen; /* Added white background color */
+        padding: 10px 20px;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        transition: color 150ms ease-in-out;
+        cursor: pointer;
+        margin-right: 10px;
+        margin-top: 20px;
+        border-radius: 12px;
+    }
+
+        .submitBtn::after {
+            content: '';
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 100%;
+            background: green;
+            z-index: -1;
+            transition: width 150ms ease-in-out;
+
+        }
+
+        .submitBtn:hover {
+            color: #fff;
+        }
+
+            .submitBtn:hover::after {
+                width: 110%;
+            }
+
+    .googleBtn {
+        border: 3px solid #4285F4;
+        border-radius: 0;
+        color: black;
+        background-color: lightblue; /* Added white background color */
+        padding: 10px 20px;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        transition: color 150ms ease-in-out;
+        cursor: pointer;
+        margin-top: 20px;
+        margin-right: 0;
+        margin-left: 10px;
+        border-radius: 12px;
+    }
+
+        .googleBtn::after {
+            content: '';
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 100%;
+            background: #4285F4;
+            z-index: -1;
+            transition: width 150ms ease-in-out;
+        }
+
+        .googleBtn:hover {
+            color: #fff;
+        }
+
+            .googleBtn:hover::after {
+                width: 110%;
+            }
+
+</style>
 
 <h1>@ViewData["Title"]</h1>
 <div>
@@ -12,16 +92,16 @@
             <form id="account" method="post">
                 <h2>Use a local account to log in.</h2>
                 <hr />
-                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div asp-validation-summary="ModelOnly" style="color:yellow"></div>
                 <div>
                     <label asp-for="Input.Username" class="form-label">Username</label>
                     <input asp-for="Input.Username" class="form-control" autocomplete="username" aria-required="true" placeholder="Username" />
-                    <span asp-validation-for="Input.Username" class="text-danger"></span>
+                    <span asp-validation-for="Input.Username" style="color:yellow"></span>
                 </div>
                 <div>
                     <label asp-for="Input.Password" class="form-label">Password</label>
                     <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Password" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    <span asp-validation-for="Input.Password" style="color:yellow"></span>
                 </div>
                 <div>
                     <label asp-for="Input.RememberMe" class="form-label">
@@ -30,19 +110,20 @@
                     </label>
                 </div>
                 <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                    <button id="login-submit"  class="submitBtn">Login</button>
                 </div>
+                <br />
                 <div>
                     <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                        <a id="forgot-password" asp-page="./ForgotPassword" style="color:white">Forgot your password?</a>
                     </p>
                     <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" style="color:white">Register as a new user</a>
                     </p>
                 </div>
             </form>
             <div>
-                <button id="googleLogin" type="button" class="w-100 btn btn-lg btn-primary">Log in with Google</button>
+                <button id="googleLogin" type="button" class="googleBtn">Log in with Google</button>
             </div>
         </section>
     </div>

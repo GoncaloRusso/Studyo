@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Studyo.Data;
 using Studyo.Models;
+using System.Diagnostics;
 
 namespace Studyo.Controllers
 {
@@ -89,17 +90,12 @@ namespace Studyo.Controllers
             }
         }
 
-        [HttpPost]
-        public IActionResult SaveQuizResult(int quizResult)
-        {
-            return Ok("Quiz result saved successfully");
-        }
-
         public IActionResult Content(int id)
         {
             var chapter = _context.Chapters.Where(c => c.Id == id).FirstOrDefault();
 
-            if (chapter == null) { return NotFound(); }
+            if (chapter == null) {
+                return NotFound(); }
 
             return View(chapter);
         }
