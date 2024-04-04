@@ -46,7 +46,7 @@ namespace Studyo.Controllers
         public async Task<IActionResult> AlgoritmoChapterId()
         {
             IdentityUser? user = await _userManger.GetUserAsync(User);
-            List<UserSubjects> currentUserSubjects = _context.UsersSubjects.Where(d => d.UserId == user.Id).ToList();
+            List<UserCompletedChapters> currentUserSubjects = _context.UsersSubjects.Where(d => d.UserId == user.Id).ToList();
 
             int idChapter;
 

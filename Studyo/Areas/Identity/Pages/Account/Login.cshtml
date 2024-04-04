@@ -33,7 +33,6 @@
             background: green;
             z-index: -1;
             transition: width 150ms ease-in-out;
-
         }
 
         .submitBtn:hover {
@@ -110,24 +109,18 @@
                     </label>
                 </div>
                 <div>
-                    <button id="login-submit"  class="submitBtn">Login</button>
+                    <a id="forgot-password" asp-page="./ForgotPassword" style="color:white">Forgot your password?</a>
+                    <br />
+                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" style="color:white">Register as a new user</a>
                 </div>
-                <br />
                 <div>
-                    <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword" style="color:white">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" style="color:white">Register as a new user</a>
-                    </p>
+                    <button id="login-submit" class="submitBtn">Login</button>
+                    <button id="googleLogin" type="button" class="googleBtn">Log in with Google</button>
                 </div>
             </form>
-            <div>
-                <button id="googleLogin" type="button" class="googleBtn">Log in with Google</button>
-            </div>
         </section>
     </div>
-    
+
 </div>
 <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js';

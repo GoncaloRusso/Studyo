@@ -34,7 +34,7 @@ namespace Studyo.Controllers
 
             if (discUser == null)
             {
-                UserSubjects du = new UserSubjects();
+                UserCompletedChapters du = new UserCompletedChapters();
 
                 du.SubjetdId = id;
 
@@ -65,7 +65,7 @@ namespace Studyo.Controllers
             quiz.QuizQuestions = _context.QuizQuestions.Where(qq => qq.QuizId == quiz.Id).ToList();
             if (quiz.QuizQuestions.IsNullOrEmpty()) { return NotFound(); }
 
-            foreach( QuizQuestion qq in quiz.QuizQuestions)
+            foreach (QuizQuestion qq in quiz.QuizQuestions)
             {
                 qq.Answers = _context.QuizQuestionAnswers.Where(qqa => qqa.QuizQuestionId == qq.Id).ToList();
                 Shuffle(qq.Answers);
@@ -94,11 +94,15 @@ namespace Studyo.Controllers
         {
             var chapter = _context.Chapters.Where(c => c.Id == id).FirstOrDefault();
 
-            if (chapter == null) {
-                return NotFound(); }
+            if (chapter == null)
+            {
+                return NotFound();
+            }
 
             return View(chapter);
         }
+
+        public IActionResult AnkiCards() { return View(); }
 
 
     }

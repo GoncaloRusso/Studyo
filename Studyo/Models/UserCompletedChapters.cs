@@ -5,12 +5,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Studyo.Models
 {
     [Table("UsersSubjects")]
-    [PrimaryKey(nameof(SubjetdId), nameof(UserId))]
-    public class UserSubjects
+    [PrimaryKey(nameof(ChapterId), nameof(UserId))]
+    public class UserCompletedChapters
     {
+        [Key]
+        public int Id { get; set; }
+
         [Required]
-        [ForeignKey("SubjetdId")]
-        public int SubjetdId { get; set; }
+        [ForeignKey("ChapterId")]
+        public int ChapterId { get; set; }
 
         [Required]
         [ForeignKey("UserId")]
