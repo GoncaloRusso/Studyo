@@ -109,14 +109,14 @@
                     </label>
                 </div>
                 <div>
-                    <a id="forgot-password" asp-page="./ForgotPassword" style="color:white">Forgot your password?</a>
-                    <br />
-                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" style="color:white">Register as a new user</a>
+                    <button id="login-submit"  class="submitBtn">Login</button>
+                    <button id="googleLogin" type="button" class="googleBtn">Log in with Google</button>
                 </div>
                 <div>
                     <button id="login-submit" class="submitBtn">Login</button>
                     <button id="googleLogin" type="button" class="googleBtn">Log in with Google</button>
                 </div>
+                
             </form>
         </section>
     </div>
