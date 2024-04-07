@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SQLitePCL;
 using Studyo.Data;
 using Studyo.Models;
 
@@ -34,13 +35,21 @@ namespace Studyo.Controllers
             return View(subjects);
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var subjects = await _context.Subjects.ToListAsync();
+            //var subjects = await _context.Subjects.ToListAsync();
 
-            if (subjects == null || !subjects.Any()) { return NotFound(); }
+            //if (subjects == null || !subjects.Any()) { return NotFound(); }
 
-            return View(subjects);
+            var subjects = from m in _context.Subjects
+                         select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                subjects = subjects.Where(s => s.Name!.Contains(searchString));
+            }
+
+            return View(await subjects.ToListAsync());
         }
 
         [Authorize]

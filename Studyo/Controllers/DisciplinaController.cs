@@ -17,16 +17,38 @@ namespace Studyo.Controllers
             _context = context;
             _userManger = userManager;
         }
-
+        /*
         public async Task<IActionResult> Index(int id)
         {
             IdentityUser? user = await _userManger.GetUserAsync(User);
 
             // Acesse a base de dados para obter a matéria pelo ID
             var materia = _context.Subjects.Where(c => c.Id == id).FirstOrDefault();
-            materia.Chapters = _context.Chapters.Where(c => c.SubjectId == id).ToList();
 
             if (materia == null) { return NotFound(); }
+
+            materia.Chapters = _context.Chapters.Where(c => c.SubjectId == id).ToList();
+
+            return View(materia);
+        }
+
+    */
+
+        public async Task<IActionResult> Index(int id, string searchString)
+        {
+            IdentityUser? user = await _userManger.GetUserAsync(User);
+
+            var materia = _context.Subjects.Where(c => c.Id == id).FirstOrDefault();
+            if (materia == null) { return NotFound(); }
+
+            materia.Chapters = _context.Chapters.Where(c => c.SubjectId == id).ToList();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                materia.Chapters = materia.Chapters.Where(c => c.Name.Contains(searchString)).ToList();
+            }
+
+            ViewBag.CurrentFilter = searchString;
 
             return View(materia);
         }
