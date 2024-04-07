@@ -22,9 +22,6 @@ namespace Studyo.Models
         public string UserId { get; set; }
 
         [NotMapped]
-        public int NumberOfChapters;
-
-        [NotMapped]
         public int NumberOfCompletedChapters;
 
         [NotMapped]

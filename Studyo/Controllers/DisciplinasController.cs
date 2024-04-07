@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Studyo.Data;
+using Studyo.Models;
 
 namespace Studyo.Controllers
 {
@@ -63,6 +64,11 @@ namespace Studyo.Controllers
 
             var enrolledSubjects = await _context.UserSubjects.Where((userSubject) => userSubject.UserId == user.Id).ToListAsync();
 
+            foreach (var userSubject in enrolledSubjects)
+            {
+                userSubject.UserChapters = await _context.UserChapters.Where((userChapter) => userChapter.UserId == user.Id && userChapter.Chapter.SubjectId == userSubject.SubjectId).ToListAsync();
+            }
+
             var temp = enrolledSubjects.Select((subject) => new
             {
                 // Include mapped properties
@@ -70,7 +76,7 @@ namespace Studyo.Controllers
                 subject.SubjectId,
 
                 // Include not mapped properties
-                completedChapters = subject.NumberOfCompletedChapters,
+                completedChapters = subject.UserChapters.Where((userChapter) => userChapter.BestGrade >= 75).ToList().Count,
             });
 
             return Json(temp);

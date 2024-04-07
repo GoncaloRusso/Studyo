@@ -107,7 +107,7 @@
                     let label = div.children[0];
                     let temp = enrolledSubjects.find((subject) => subject.subjectId === Number(div.id));
 
-                    console.log(temp, div.id, label);
+                    console.log(temp);
 
                     if (temp !== undefined) {
                         label.textContent = temp.completedChapters + label.textContent;
