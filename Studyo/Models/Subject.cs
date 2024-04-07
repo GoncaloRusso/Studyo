@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Studyo.Models
 {
-
     [Table("Subjects")]
     public class Subject
     {
@@ -14,6 +13,10 @@ namespace Studyo.Models
         [Required]
         public string Name { get; set; }
 
+        [Required]
+        public int NumberOfChapters { get; set; }
+
+        [NotMapped]
         public List<Chapter> Chapters { get; set; }
     }
 }

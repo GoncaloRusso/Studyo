@@ -1,0 +1,46 @@
+﻿@model Studyo.Models.UserChapter
+
+@{
+    ViewData["Title"] = "Quiz Result";
+}
+
+<style>
+    .botao_simples {
+        display: inline-block;
+        width: 200px;
+        height: 40px;
+        margin: 20px 10px;
+        background-color: transparent;
+        color: white;
+        border: 2px solid white;
+        text-align: center;
+        line-height: 40px;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+        .botao_simples:hover,
+        .botao_simples:active {
+            color: white;
+            border-color: white;
+            text-decoration: none;
+        }
+
+    .buttons {
+        text-align: center;
+    }
+</style>
+
+<div>
+    <div>
+        <h1>Best Score: @Model.BestGrade</h1>
+        <h2>Current Score: @Model.CurrentScore</h2>
+    </div>
+    <a class="botao_simples"
+       asp-controller="Disciplina"
+       asp-action="Index"
+       asp-route-id="@Model.Chapter.SubjectId">
+        Voltar
+    </a>
+
+</div>

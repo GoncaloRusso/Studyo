@@ -32,49 +32,53 @@
     }
 </style>
 
-<script>
-    const numberOfQuestion = () => {
-        return document.querySelectorAll("input[type='radio']").length / 4;
-    }
-    
-    const handleSubmit = () => {
-        const answers = document.querySelectorAll("input[type='radio']:checked");
-
-        let counter = 0;
-
-        answers.forEach((answer) => (answer.value === "True") ? counter += 1 : 0);
-
-        const score = Math.round(counter / numberOfQuestion() * 100);
-
-        let div = document.getElementById("quiz-div");
-        while (div.firstChild) {
-            div.removeChild(div.firstChild);
-        }
-
-        let p = document.createElement("h1");
-        p.innerHTML = "Pontuação: " + score + "%";
-
-        div.appendChild(p);
-    }
-
-</script>
-
 <div>
-    <div id="quiz-div">
+    <div>
         @foreach (var question in Model.QuizQuestions)
         {
-            
+
             <h1>@Html.DisplayFor(modelItem => question.Question)</h1>
 
             @foreach (var answer in question.Answers)
             {
-                <input type="radio" itemid="@answer.Id" name="@question.Id" value="@answer.isCorrectAnswer.ToString()"/>
-                <label>- @Html.DisplayFor(modelItem => answer.Answer)</label><br />
+                <input type="radio" itemid="@answer.Id" name="@question.Id" value="@answer.isCorrectAnswer.ToString()" />
+                <label>- @Html.DisplayFor(modelItem => answer.Answer)</label>
+
+                <br />
             }
         }
     </div>
     <div class="buttons">
         <button class="botao_simples" onclick="window.history.back()">Voltar</button>
-        <button id="" class="botao_simples" onclick="handleSubmit()">Submeter</button>
+        <!-- HTML with Razor syntax -->
+        <a id="asdfbasdfasbdf"
+            class="botao_simples"
+           asp-controller="Disciplina"
+           asp-action="QuizResult"
+           asp-route-chapterId="@Model.ChapterId"
+           asp-route-score="0">Submeter</a>
     </div>
 </div>
+
+<script>
+    let score = 0;
+
+    const calculateScore = () => {
+        numberOfQuestion = document.querySelectorAll("input[type='radio']").length / 4;
+
+        const answers = document.querySelectorAll("input[type='radio']:checked");
+        let counter = 0;
+        answers.forEach((answer) => (answer.value === "True") ? counter += 1 : 0);
+        return Math.round(counter / numberOfQuestion * 100);
+
+    };
+
+    document.querySelectorAll("input[type='radio']")
+        .forEach((elem) => elem.addEventListener("click", () => {
+            score = calculateScore();
+            const temp = document.querySelector("#asdfbasdfasbdf");
+            temp.href = "/Disciplina/QuizResult?" + `chapterId=@{@Model.ChapterId}` + `&score=${score}`;
+            console.log(temp.href);
+        }));
+
+</script>

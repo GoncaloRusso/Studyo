@@ -12,7 +12,7 @@ using Studyo.Data;
 namespace Studyo.Migrations
 {
     [DbContext(typeof(StudyoDbContext))]
-    [Migration("20240308153622_PopulateDatabase")]
+    [Migration("20240407140232_PopulateDatabase")]
     partial class PopulateDatabase
     {
         /// <inheritdoc />
@@ -140,8 +140,6 @@ namespace Studyo.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.UseTptMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -353,22 +351,59 @@ namespace Studyo.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("NumberOfChapters")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Subjects");
                 });
 
-            modelBuilder.Entity("Studyo.Models.UserSubjects", b =>
+            modelBuilder.Entity("Studyo.Models.UserChapters", b =>
                 {
-                    b.Property<int>("SubjetdId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BestGrade")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ChapterId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SubjetdId", "UserId");
+                    b.HasKey("Id");
 
-                    b.ToTable("UsersSubjects");
+                    b.HasIndex("ChapterId");
+
+                    b.ToTable("UserChapters");
+                });
+
+            modelBuilder.Entity("Studyo.Models.UserSubjects", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("UserSubjects");
                 });
 
             modelBuilder.Entity("Studyo.Models.Workshop", b =>
@@ -378,10 +413,6 @@ namespace Studyo.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AuthorId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -402,8 +433,6 @@ namespace Studyo.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
-
                     b.HasIndex("WorkshopContent")
                         .IsUnique();
 
@@ -421,13 +450,6 @@ namespace Studyo.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("WorkshopContents");
-                });
-
-            modelBuilder.Entity("Studyo.Models.User", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -484,7 +506,7 @@ namespace Studyo.Migrations
             modelBuilder.Entity("Studyo.Models.Chapter", b =>
                 {
                     b.HasOne("Studyo.Models.Subject", "Subject")
-                        .WithMany("Chapters")
+                        .WithMany()
                         .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -525,37 +547,37 @@ namespace Studyo.Migrations
                     b.Navigation("QuizQuestion");
                 });
 
-            modelBuilder.Entity("Studyo.Models.Workshop", b =>
+            modelBuilder.Entity("Studyo.Models.UserChapters", b =>
                 {
-                    b.HasOne("Studyo.Models.User", "Author")
+                    b.HasOne("Studyo.Models.Chapter", "Chapter")
                         .WithMany()
-                        .HasForeignKey("AuthorId")
+                        .HasForeignKey("ChapterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Chapter");
+                });
+
+            modelBuilder.Entity("Studyo.Models.UserSubjects", b =>
+                {
+                    b.HasOne("Studyo.Models.Subject", "Subject")
+                        .WithMany()
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Subject");
+                });
+
+            modelBuilder.Entity("Studyo.Models.Workshop", b =>
+                {
                     b.HasOne("Studyo.Models.WorkshopContent", "Content")
                         .WithOne("workshop")
                         .HasForeignKey("Studyo.Models.Workshop", "WorkshopContent")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Author");
-
                     b.Navigation("Content");
-                });
-
-            modelBuilder.Entity("Studyo.Models.User", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                        .WithOne()
-                        .HasForeignKey("Studyo.Models.User", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Studyo.Models.Subject", b =>
-                {
-                    b.Navigation("Chapters");
                 });
 
             modelBuilder.Entity("Studyo.Models.WorkshopContent", b =>

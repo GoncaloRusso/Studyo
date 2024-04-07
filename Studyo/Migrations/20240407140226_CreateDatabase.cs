@@ -70,23 +70,12 @@ namespace Studyo.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NumberOfChapters = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Subjects", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UsersSubjects",
-                columns: table => new
-                {
-                    SubjetdId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UsersSubjects", x => new { x.SubjetdId, x.UserId });
                 });
 
             migrationBuilder.CreateTable(
@@ -208,23 +197,6 @@ namespace Studyo.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Users_AspNetUsers_Id",
-                        column: x => x.Id,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Chapters",
                 columns: table => new
                 {
@@ -246,6 +218,26 @@ namespace Studyo.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserSubjects",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SubjectId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserSubjects", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserSubjects_Subjects_SubjectId",
+                        column: x => x.SubjectId,
+                        principalTable: "Subjects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Workshops",
                 columns: table => new
                 {
@@ -254,19 +246,12 @@ namespace Studyo.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     WorkshopContent = table.Column<int>(type: "int", nullable: false),
-                    AuthorId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Workshops", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Workshops_Users_AuthorId",
-                        column: x => x.AuthorId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Workshops_WorkshopContents_WorkshopContent",
                         column: x => x.WorkshopContent,
@@ -288,6 +273,27 @@ namespace Studyo.Migrations
                     table.PrimaryKey("PK_Quizzes", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Quizzes_Chapters_ChapterId",
+                        column: x => x.ChapterId,
+                        principalTable: "Chapters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserChapters",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ChapterId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BestGrade = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserChapters", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserChapters_Chapters_ChapterId",
                         column: x => x.ChapterId,
                         principalTable: "Chapters",
                         principalColumn: "Id",
@@ -395,9 +401,14 @@ namespace Studyo.Migrations
                 column: "ChapterId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Workshops_AuthorId",
-                table: "Workshops",
-                column: "AuthorId");
+                name: "IX_UserChapters_ChapterId",
+                table: "UserChapters",
+                column: "ChapterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserSubjects_SubjectId",
+                table: "UserSubjects",
+                column: "SubjectId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Workshops_WorkshopContent",
@@ -431,7 +442,10 @@ namespace Studyo.Migrations
                 name: "QuizQuestionAnswers");
 
             migrationBuilder.DropTable(
-                name: "UsersSubjects");
+                name: "UserChapters");
+
+            migrationBuilder.DropTable(
+                name: "UserSubjects");
 
             migrationBuilder.DropTable(
                 name: "Workshops");
@@ -440,19 +454,16 @@ namespace Studyo.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "QuizQuestions");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "QuizQuestions");
 
             migrationBuilder.DropTable(
                 name: "WorkshopContents");
 
             migrationBuilder.DropTable(
                 name: "Quizzes");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Chapters");

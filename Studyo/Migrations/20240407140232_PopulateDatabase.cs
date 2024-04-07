@@ -13,7 +13,9 @@ namespace Studyo.Migrations
             // Existing migration code...
             var sqlScript = File.ReadAllText("./Data/PopulateDb.sql");
             migrationBuilder.Sql(sqlScript);
+
         }
+
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)

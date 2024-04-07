@@ -13,7 +13,8 @@ namespace Studyo.Data
         public DbSet<QuizQuestion> QuizQuestions { get; set; } = default!;
         public DbSet<QuizQuestionAnswer> QuizQuestionAnswers { get; set; } = default!;
         public DbSet<Subject> Subjects { get; set; } = default!;
-        public DbSet<UserCompletedChapters> UsersSubjects { get; set; } = default!;
+        public DbSet<UserChapter> UserChapters { get; set; } = default!;
+        public DbSet<UserSubject> UserSubjects { get; set; } = default!;
         public DbSet<Workshop> Workshops { get; set; } = default!;
         public DbSet<WorkshopContent> WorkshopContents { get; set; } = default!;
 

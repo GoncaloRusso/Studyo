@@ -1,7 +1,7 @@
-﻿@model Studyo.Models.Subject
+﻿@model Studyo.Models.UserSubject
 
 @{
-    ViewData["Title"] = Model.Name;
+    ViewData["Title"] = Model.Subject.Name;
 }
 <style>
     table {
@@ -23,42 +23,57 @@
     }
 </style>
 
-<div class="text-center">
-    <h1 class="display-4">@Model.Name</h1>
-    
 
+<div>
+    <div class="text-center">
+        <h1 class="display-4">@Model.Subject.Name</h1>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Capítulos
+                </th>
+                <th>
+                    Ações
+                </th>
+                <th>
+                    Resultado Quiz
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Subject.Chapters)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        <a style="color:white" asp-action="Content" asp-route-id="@item.Id">Matéria</a> |
+                        <a style="color:white" asp-action="Quiz" asp-route-id="@item.Id">Seguir para Quiz</a> |
+                        <a style="color:white" asp-action="AnkiCards">Seguir para Anki Cards</a>
+                    </td>
+                    <td>
+                        @if (Model.UserChapters.Any(userChapter => userChapter.ChapterId == item.Id))
+                        {
+                            var grade = Model.UserChapters.First(userChapter => userChapter.ChapterId == item.Id).BestGrade;
+                            <h3>@grade %</h3>
+                        }
+                        else
+                        {
+                            <h3>Não realizado</h3>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Capítulos
-            </th>
-            <th>
-                Ações
-            </th>
-            <th>
-                Quiz Completo?
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Chapters)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    <a style="color:white" asp-action="Content" asp-route-id="@item.Id">Matéria</a> |
-                    <a style="color:white" asp-action="Quiz" asp-route-id="@item.Id">Seguir para Quiz</a> |
-                    <a style="color:white" asp-action="AnkiCards" >Seguir para Anki Cards</a>
-                </td>
-                <td>
-                    Adicionar S/N
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<script>
+
+</script>
+
+

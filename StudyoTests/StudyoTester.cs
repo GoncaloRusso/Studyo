@@ -31,8 +31,6 @@ namespace StudyoTests
         [Fact]
         public void ShuffleTest()
         {
-            DisciplinaController disciplinaController = new DisciplinaController(null, null);
-
             
         }
 
