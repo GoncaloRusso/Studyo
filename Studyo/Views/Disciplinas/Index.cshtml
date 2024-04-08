@@ -82,47 +82,63 @@
 
 </style>
 
-<div class="menu-container">
-    @foreach (var item in Model)
-    {
-        <a class="disciplinas_button" asp-controller="Disciplina" asp-action="Index" asp-route-id="@item.Id">
-            <div class="stacked-divs vertical-center">
-                <div>@item.Name</div>
-                <div id="@item.Id" class="toBeFilled">
-                    <label id="progress"> / @item.NumberOfChapters</label>
-                </div>
-
-            </div>
-        </a>
+<script>
+    const handleClick => () {
+        document.getElementById("skaflasndilfbasd").textContent = "";
     }
+</script>
 
-    <script>
-        // Perform an HTTP GET request to fetch enrolled subjects
-        axios.get('/Disciplinas/GetEnrolledSubjects')
-            .then(function (response) {
-                let enrolledSubjects = response.data;
-                let divs = document.querySelectorAll(".toBeFilled");
+<div>
+    <form asp-controller="Disciplinas" asp-action="Index" method="get">
+        <p>
+            Disciplina: <input id="skaflasndilfbasd" type="text" name="SearchString" />
+            <input type="submit" value="Filtrar" />
+            <input type="submit" onclick="handleClick()" value="Reset" />
+        </p>
+    </form>
 
-                divs.forEach((div) => {
-                    let label = div.children[0];
-                    let temp = enrolledSubjects.find((subject) => subject.subjectId === Number(div.id));
+    <div class="menu-container">
+        @foreach (var item in Model)
+        {
+            <a class="disciplinas_button" asp-controller="Disciplina" asp-action="Index" asp-route-id="@item.Id">
+                <div class="stacked-divs vertical-center">
+                    <div>@item.Name</div>
+                    <div id="@item.Id" class="toBeFilled">
+                        <label id="progress"> / @item.NumberOfChapters</label>
+                    </div>
 
-                    console.log(temp);
+                </div>
+            </a>
+        }
 
-                    if (temp !== undefined) {
-                        label.textContent = temp.completedChapters + label.textContent;
-                    } else {
-                        label.textContent = "0" + label.textContent;
-                    }
+        <script>
+            // Perform an HTTP GET request to fetch enrolled subjects
+            axios.get('/Disciplinas/GetEnrolledSubjects')
+                .then(function (response) {
+                    let enrolledSubjects = response.data;
+                    let divs = document.querySelectorAll(".toBeFilled");
+
+                    divs.forEach((div) => {
+                        let label = div.children[0];
+                        let temp = enrolledSubjects.find((subject) => subject.subjectId === Number(div.id));
+
+                        console.log(temp);
+
+                        if (temp !== undefined) {
+                            label.textContent = temp.completedChapters + label.textContent;
+                        } else {
+                            label.textContent = "0" + label.textContent;
+                        }
+                    });
+                })
+                .catch(function (error) {
+                    console.error('Error fetching enrolled subjects:', error);
                 });
-            })
-            .catch(function (error) {
-                console.error('Error fetching enrolled subjects:', error);
-            });
-    </script>
+        </script>
 
+    </div>
+
+    <a class="botao_simples" asp-controller="Disciplinas" asp-action="AdvisedStudy">
+        Seleção por Algoritmo
+    </a>
 </div>
-
-<a class="botao_simples" asp-controller="Disciplinas" asp-action="AdvisedStudy">
-    Seleção por Algoritmo
-</a>

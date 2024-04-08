@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Studyo.Data;
 using Studyo.Models;
 
@@ -19,7 +19,7 @@ namespace Studyo.Controllers
             _userManger = userManager;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
             // GET THE USER
             IdentityUser? user = await _userManger.GetUserAsync(User);
@@ -28,6 +28,7 @@ namespace Studyo.Controllers
 
             // GET THE SUBJECTS
             var subjects = await _context.Subjects.ToListAsync();
+
 
             if (subjects == null || !subjects.Any()) { return NotFound(); }
 
@@ -57,7 +58,19 @@ namespace Studyo.Controllers
                     }
                 }
             }
-            return View(subjects);
+
+            if (searchString.IsNullOrEmpty())
+            {
+                return View(subjects);
+            }
+
+            else
+            {
+                return View(subjects.Where((subjects) => subjects.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase)).ToList());
+            }
+
+
+
         }
 
         [HttpGet("/Disciplinas/GetEnrolledSubjects")]
