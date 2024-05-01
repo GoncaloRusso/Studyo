@@ -88,6 +88,14 @@
     }
 </script>
 
+
+@if (TempData["WarningMessage"] != null)
+{
+    <div class="alert alert-warning" role="alert">
+        @TempData["WarningMessage"]
+    </div>
+}
+
 <div>
     <form asp-controller="Disciplinas" asp-action="Index" method="get">
         <p>
@@ -142,3 +150,5 @@
         Seleção por Algoritmo
     </a>
 </div>
+
+

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Studyo.Data;
@@ -6,6 +7,7 @@ using Studyo.Models;
 
 namespace Studyo.Controllers
 {
+    [Authorize]
     public class DisciplinaController : Controller
     {
         private readonly StudyoDbContext _context;
@@ -148,18 +150,5 @@ namespace Studyo.Controllers
                 list[n] = value;
             }
         }
-
-        //[HttpPost("/Disciplina/GetQuizzesResult")]
-        //public async Task<IActionResult> GetQuizzesResult(int subjectId)
-        //{
-        //    IdentityUser? user = await _userManger.GetUserAsync(User);
-
-        //    if (user == null) { return Json(new { }); }
-
-
-
-        //    return Json();
-        //}
-
     }
 }

@@ -2,164 +2,59 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Log in";
 }
-<style>
-    .submitBtn {
-        border: 3px solid green;
-        border-radius: 0;
-        color: black;
-        background-color: lightgreen; /* Added white background color */
-        padding: 10px 20px;
-        position: relative;
-        overflow: hidden;
-        z-index: 1;
-        transition: color 150ms ease-in-out;
-        cursor: pointer;
-        margin-right: 10px;
-        margin-top: 20px;
-        border-radius: 12px;
-    }
-
-        .submitBtn::after {
-            content: '';
-            position: absolute;
-            display: block;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 100%;
-            background: green;
-            z-index: -1;
-            transition: width 150ms ease-in-out;
-        }
-
-        .submitBtn:hover {
-            color: #fff;
-        }
-
-            .submitBtn:hover::after {
-                width: 110%;
-            }
-
-    .googleBtn {
-        border: 3px solid #4285F4;
-        border-radius: 0;
-        color: black;
-        background-color: lightblue; /* Added white background color */
-        padding: 10px 20px;
-        position: relative;
-        overflow: hidden;
-        z-index: 1;
-        transition: color 150ms ease-in-out;
-        cursor: pointer;
-        margin-top: 20px;
-        margin-right: 0;
-        margin-left: 10px;
-        border-radius: 12px;
-    }
-
-        .googleBtn::after {
-            content: '';
-            position: absolute;
-            display: block;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 100%;
-            background: #4285F4;
-            z-index: -1;
-            transition: width 150ms ease-in-out;
-        }
-
-        .googleBtn:hover {
-            color: #fff;
-        }
-
-            .googleBtn:hover::after {
-                width: 110%;
-            }
-
-</style>
 
 <h1>@ViewData["Title"]</h1>
+
 <div>
     <div>
         <section>
             <form id="account" method="post">
                 <h2>Use a local account to log in.</h2>
                 <hr />
-                <div asp-validation-summary="ModelOnly" style="color:yellow"></div>
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div>
                     <label asp-for="Input.Username" class="form-label">Username</label>
-                    <input asp-for="Input.Username" class="form-control" autocomplete="username" aria-required="true" placeholder="Username" />
-                    <span asp-validation-for="Input.Username" style="color:yellow"></span>
+                    <input asp-for="Input.Username" class="form-control" autocomplete="username" aria-required="true" placeholder="username" />
+                    <span asp-validation-for="Input.Username" class="text-danger"></span>
                 </div>
                 <div>
                     <label asp-for="Input.Password" class="form-label">Password</label>
-                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Password" />
-                    <span asp-validation-for="Input.Password" style="color:yellow"></span>
+                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
-                <div>
+                <div class="checkbox mb-3">
                     <label asp-for="Input.RememberMe" class="form-label">
                         <input class="form-check-input" asp-for="Input.RememberMe" />
                         @Html.DisplayNameFor(m => m.Input.RememberMe)
                     </label>
                 </div>
                 <div>
-                    <button id="login-submit"  class="submitBtn">Login</button>
-                    <button id="googleLogin" type="button" class="googleBtn">Log in with Google</button>
+                    <p>
+                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                    </p>
+                    <p>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                    </p>
+                </div>
+                <div>
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                </div>
+            </form>
+            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                <div>
+                    <p>
+                        @foreach (var provider in Model.ExternalLogins!)
+                        {
+                            <button type="submit" class="w-100 btn btn-lg btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                        }
+                    </p>
                 </div>
             </form>
         </section>
     </div>
-
 </div>
-<script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js';
-    import { getAuth, GoogleAuthProvider, signInWithPopup } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js';
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyAWSbp4V-DqEUqiM9McGE2cCjH3tpoH-Fk",
-        authDomain: "studyo-82e06.firebaseapp.com",
-        projectId: "studyo-82e06",
-        storageBucket: "studyo-82e06.appspot.com",
-        messagingSenderId: "476036324039",
-        appId: "1:476036324039:web:453727a60d8c2ed8b93ce2",
-        measurementId: "G-VNP3C216FY"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    document.getElementById('googleLogin').addEventListener('click', () => {
-        const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider).then((result) => {
-            var user = result.user;
-
-            // Substituir espaços no nome de usuário por underscores
-            var username = user.displayName.replace(/ /g, '_');
-
-            // Remover quaisquer caracteres que não sejam letras ou dígitos
-            username = username.replace(/[^a-zA-Z0-9]/g, '');
-
-            // Usar o ID do usuário como senha
-            var password = user.uid;
-
-            // Preencher o formulário com os dados do usuário
-            document.getElementById('Input_Username').value = username;
-            document.getElementById('Input_Password').value = password + ('.');
-
-            // Acionar o evento de envio do formulário
-            document.getElementById('account').submit();
-        }).catch((error) => {
-            console.error('Erro na autenticação com o Google', error);
-        });
-    });
-</script>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

@@ -2,12 +2,14 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
 using Studyo.Data;
 using Studyo.Models;
 
 namespace Studyo.Controllers
 {
+    [Authorize]
     public class DisciplinasController : Controller
     {
         private readonly StudyoDbContext _context;
@@ -29,8 +31,8 @@ namespace Studyo.Controllers
             // GET THE SUBJECTS
             var subjects = await _context.Subjects.ToListAsync();
 
+            if (subjects == null) { return NotFound(); }
 
-            if (subjects == null || !subjects.Any()) { return NotFound(); }
 
             // GET THE USER SUBJECTS
             var userSubjects = await _context.UserSubjects.Where((userSubjects) => userSubjects.UserId == user.Id).ToListAsync();
@@ -73,6 +75,15 @@ namespace Studyo.Controllers
 
         }
 
+        [HttpGet("/Disciplinas/GetSubjects")]
+        public async Task<IActionResult> GetSubjects()
+        {
+            var subjects = await _context.Subjects.ToListAsync();
+
+            return Json(subjects);
+        }
+
+
         [HttpGet("/Disciplinas/GetEnrolledSubjects")]
         public async Task<IActionResult> GetEnrolledSubjects()
         {
@@ -100,8 +111,6 @@ namespace Studyo.Controllers
             return Json(temp);
         }
 
-
-        [Authorize]
         public async Task<IActionResult> AdvisedStudy()
         {
             IdentityUser? user = await _userManger.GetUserAsync(User);
@@ -109,6 +118,13 @@ namespace Studyo.Controllers
             if (user == null) { return NotFound(); }
 
             var userSubjects = await _context.UserSubjects.Where((userSubject) => userSubject.UserId == user.Id).ToListAsync();
+
+            if (userSubjects.IsNullOrEmpty())
+            {
+                // Display a warning message
+                TempData["WarningMessage"] = "The user is not enrolled to any subject";
+                return RedirectToAction("Index", "Disciplinas");
+            }
 
             List<object> arr2 = new List<object>();
 
