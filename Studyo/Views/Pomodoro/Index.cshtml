@@ -25,10 +25,13 @@
         top: 0px;
     }
 
-    p {
-        text-align: center;
-        font-size: 60px;
-        margin-top: 0px;
+    .vertical-text{
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        writing-mode: vertical-lr;
     }
 
 
@@ -38,8 +41,8 @@
         right: 0;
         top: 50%;
         transform: translateY(-50%);
-        width: 30px;
-        height: 50px;
+        width: 40px;
+        height: 150px;
         background: rgba(145,123,238,0.9);
         border-radius: 50% 0 0 50%;
         cursor: pointer;
@@ -47,17 +50,12 @@
     }
 
         #sidenavToggle:before {
-            content: "<";
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             font-size: 20px;
             color: white;
-        }
-
-        #sidenavToggle.open:before {
-            content: ">";
         }
 
     #startPomodoro {
@@ -113,7 +111,9 @@
         <p id="demo"></p>
     </a>
 </div>
-<div id="sidenavToggle"></div>
+<div id="sidenavToggle" class="column">
+    <p class="vertical-text">POMODORO</p>
+</div>
 <script>
     var sidenav = document.getElementById('mySidenav');
     var toggle = document.getElementById('sidenavToggle');

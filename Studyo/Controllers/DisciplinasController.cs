@@ -2,14 +2,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.IdentityModel.Tokens;
 using Studyo.Data;
 using Studyo.Models;
 
 namespace Studyo.Controllers
 {
-    [Authorize]
     public class DisciplinasController : Controller
     {
         private readonly StudyoDbContext _context;
@@ -21,68 +18,42 @@ namespace Studyo.Controllers
             _userManger = userManager;
         }
 
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index()
         {
-            // GET THE USER
             IdentityUser? user = await _userManger.GetUserAsync(User);
 
             if (user == null) { return NotFound(); }
 
-            // GET THE SUBJECTS
             var subjects = await _context.Subjects.ToListAsync();
 
-            if (subjects == null) { return NotFound(); }
+            if (subjects == null || !subjects.Any()) { return NotFound(); }
 
-
-            // GET THE USER SUBJECTS
             var userSubjects = await _context.UserSubjects.Where((userSubjects) => userSubjects.UserId == user.Id).ToListAsync();
-
 
             if (userSubjects != null)
             {
-                // FOR EACH USER SUBJECT AND IF THE SUBJECT IS NOT NULL WE CALCULATE THE NUMBER OF COMPLETED CHAPTERS
-                foreach (var userSubject in userSubjects)
+                foreach (var subject in userSubjects)
                 {
-                    if (userSubject != null)
+                    if (subject != null)
                     {
-                        userSubject.UserChapters = await _context.UserChapters.Where((userChapter) => userChapter.UserId == user.Id &&
-                            userChapter.Chapter.SubjectId == userSubject.SubjectId).ToListAsync();
+                        //TODO
+                        subject.UserChapters = await _context.UserChapters.ToListAsync();
+                        subject.NumberOfCompletedChapters = 0;
 
-                        userSubject.NumberOfCompletedChapters = 0;
-
-                        foreach (var userChapter in userSubject.UserChapters)
+                        foreach (var chapter in subject.UserChapters)
                         {
-                            if (userChapter.BestGrade >= 75)
+                            if (chapter.BestGrade >= 75)
                             {
-                                userSubject.NumberOfCompletedChapters++;
+                                subject.NumberOfCompletedChapters++;
                             }
                         }
                     }
+
                 }
             }
 
-            if (searchString.IsNullOrEmpty())
-            {
-                return View(subjects);
-            }
-
-            else
-            {
-                return View(subjects.Where((subjects) => subjects.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase)).ToList());
-            }
-
-
-
+            return View(subjects);
         }
-
-        [HttpGet("/Disciplinas/GetSubjects")]
-        public async Task<IActionResult> GetSubjects()
-        {
-            var subjects = await _context.Subjects.ToListAsync();
-
-            return Json(subjects);
-        }
-
 
         [HttpGet("/Disciplinas/GetEnrolledSubjects")]
         public async Task<IActionResult> GetEnrolledSubjects()
@@ -111,57 +82,36 @@ namespace Studyo.Controllers
             return Json(temp);
         }
 
-        public async Task<IActionResult> AdvisedStudy()
+
+        [Authorize]
+        public async Task<IActionResult> AlgoritmoChapterId()
         {
             IdentityUser? user = await _userManger.GetUserAsync(User);
+            //List<UserCompletedChapters> currentUserSubjects = _context.UsersSubjects.Where(d => d.UserId == user.Id).ToList();
 
-            if (user == null) { return NotFound(); }
+            //int idChapter;
 
-            var userSubjects = await _context.UserSubjects.Where((userSubject) => userSubject.UserId == user.Id).ToListAsync();
+            //if (currentUserSubjects.Count == 0) { idChapter = -1; }
+            //else
+            //{
+            //    List<Chapter> listChaptersOfSubject = new List<Chapter>();
 
-            if (userSubjects.IsNullOrEmpty())
-            {
-                // Display a warning message
-                TempData["WarningMessage"] = "The user is not enrolled to any subject";
-                return RedirectToAction("Index", "Disciplinas");
-            }
+            //    foreach (KeyValuePair<Chapter, bool> t in currentUserSubjects.OrderBy(s => s.calculateCompletion()).First().CompletedChapters)
+            //    {
+            //        if (t.Value == false)
+            //        {
+            //            listChaptersOfSubject.Add(t.Key);
+            //        }
+            //    }
 
-            List<object> arr2 = new List<object>();
+            //    idChapter = listChaptersOfSubject.OrderBy(c => c.Id).First().Id;
+            //}
 
-            foreach (var userSubject in userSubjects)
-            {
-                userSubject.Subject = _context.Subjects.Where((subject) => subject.Id == userSubject.SubjectId).FirstOrDefault();
+            //if (idChapter == -1) { return NotFound(); }
 
-                if (userSubject.Subject == null) { continue; }
+            //Chapter chap = _context.Chapters.Where(c => c.Id == idChapter).First();
 
-                userSubject.UserChapters = await _context.UserChapters.Where((userChapter) => userChapter.UserId == user.Id && userChapter.Chapter.SubjectId == userSubject.SubjectId).ToListAsync();
-
-                userSubject.Completion = (float)userSubject.UserChapters.Where((userChapter) => userChapter.BestGrade >= 75).Count() / userSubject.Subject.NumberOfChapters;
-            }
-
-            var LessCompleted = userSubjects.OrderBy((userSubject) => userSubject.Completion).First();
-
-            LessCompleted.Subject.Chapters = _context.Chapters.Where((chapter) => chapter.SubjectId == LessCompleted.SubjectId).ToList();
-
-            UserChapter worseResult = new UserChapter { BestGrade = 10000 };
-
-            foreach (var chapter in LessCompleted.Subject.Chapters)
-            {
-                var tmp = _context.UserChapters.Where((userChapter) => userChapter.UserId == user.Id && userChapter.ChapterId == chapter.Id).FirstOrDefault();
-
-                if (tmp != null)
-                {
-                    worseResult = (tmp.BestGrade < worseResult.BestGrade) ? tmp : worseResult;
-                }
-
-                else
-                {
-                    worseResult = new UserChapter { ChapterId = chapter.Id };
-                    break;
-                }
-            }
-
-            return RedirectToAction("Content", "Disciplina", new { id = worseResult.ChapterId });
+            return View();
         }
     }
 }

@@ -2,59 +2,114 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Login";
 }
+<style>
+    .button-container {
+        padding: 10px; /* Padding around the container */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .botao_simples {
+        display: block;
+        width: 200px;
+        height: 40px;
+        margin: 10px auto;
+        background-color: transparent;
+        color: white;
+        border: 2px solid white;
+        text-align: center;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+        .botao_simples:hover,
+        .botao_simples:active {
+            color: white;
+            border-color: white;
+            text-decoration: none;
+        }
+
+</style>
 
 <h1>@ViewData["Title"]</h1>
-
 <div>
     <div>
         <section>
             <form id="account" method="post">
                 <h2>Use a local account to log in.</h2>
                 <hr />
-                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div asp-validation-summary="ModelOnly" style="color:yellow"></div>
                 <div>
                     <label asp-for="Input.Username" class="form-label">Username</label>
-                    <input asp-for="Input.Username" class="form-control" autocomplete="username" aria-required="true" placeholder="username" />
-                    <span asp-validation-for="Input.Username" class="text-danger"></span>
+                    <input asp-for="Input.Username" class="form-control" autocomplete="username" aria-required="true" placeholder="Username" />
+                    <span asp-validation-for="Input.Username" style="color:yellow"></span>
                 </div>
                 <div>
                     <label asp-for="Input.Password" class="form-label">Password</label>
-                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Password" />
+                    <span asp-validation-for="Input.Password" style="color:yellow"></span>
                 </div>
-                <div class="checkbox mb-3">
+                <div>
                     <label asp-for="Input.RememberMe" class="form-label">
                         <input class="form-check-input" asp-for="Input.RememberMe" />
                         @Html.DisplayNameFor(m => m.Input.RememberMe)
                     </label>
                 </div>
-                <div>
-                    <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                </div>
-                <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
-                </div>
-            </form>
-            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                <div>
-                    <p>
-                        @foreach (var provider in Model.ExternalLogins!)
-                        {
-                            <button type="submit" class="w-100 btn btn-lg btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                        }
-                    </p>
+                <div class="button-container">
+                    <button id="registerSubmit" class="botao_simples">Log In</button>
+                    <button id="googleSignIn" type="button" class="botao_simples">Sign in with Google</button>
+                    <button id="goBackButton" class="botao_simples" onclick="window.history.back()">Voltar</button>
                 </div>
             </form>
         </section>
     </div>
+
 </div>
+<script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js';
+    import { getAuth, GoogleAuthProvider, signInWithPopup } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js';
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAWSbp4V-DqEUqiM9McGE2cCjH3tpoH-Fk",
+        authDomain: "studyo-82e06.firebaseapp.com",
+        projectId: "studyo-82e06",
+        storageBucket: "studyo-82e06.appspot.com",
+        messagingSenderId: "476036324039",
+        appId: "1:476036324039:web:453727a60d8c2ed8b93ce2",
+        measurementId: "G-VNP3C216FY"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    document.getElementById('googleLogin').addEventListener('click', () => {
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider).then((result) => {
+            var user = result.user;
+
+            // Substituir espaços no nome de usuário por underscores
+            var username = user.displayName.replace(/ /g, '_');
+
+            // Remover quaisquer caracteres que não sejam letras ou dígitos
+            username = username.replace(/[^a-zA-Z0-9]/g, '');
+
+            // Usar o ID do usuário como senha
+            var password = user.uid;
+
+            // Preencher o formulário com os dados do usuário
+            document.getElementById('Input_Username').value = username;
+            document.getElementById('Input_Password').value = password + ('.');
+
+            // Acionar o evento de envio do formulário
+            document.getElementById('account').submit();
+        }).catch((error) => {
+            console.error('Erro na autenticação com o Google', error);
+        });
+    });
+</script>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

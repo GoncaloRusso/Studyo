@@ -5,17 +5,13 @@
 namespace Studyo.Migrations
 {
     /// <inheritdoc />
-    public partial class PopulateDatabase : Migration
+    public partial class DatabasePopulate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            // Existing migration code...
-            var sqlScript = File.ReadAllText("./Data/PopulateDb.sql");
-            migrationBuilder.Sql(sqlScript);
 
         }
-
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)

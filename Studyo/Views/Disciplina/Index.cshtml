@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = Model.Subject.Name;
 }
-
 <style>
     table {
         font-family: arial, sans-serif;
@@ -24,24 +23,10 @@
     }
 </style>
 
-<script>
-    const handleClick => () {
-        document.getElementById("skaflasndilfbasd").textContent = "";
-    }
-</script>
 
 <div>
     <div class="text-center">
         <h1 class="display-4">@Model.Subject.Name</h1>
-
-        <form asp-controller="Disciplina" asp-action="Index" method="get">
-            <p>
-                Disciplina: <input id="skaflasndilfbasd" type="text" name="SearchString" />
-                <input type="submit" value="Filtrar" />
-                <input type="submit" onclick="handleClick()" value="Reset" />
-            </p>
-        </form>
-
     </div>
 
     <table class="table">
@@ -86,3 +71,9 @@
         </tbody>
     </table>
 </div>
+
+<script>
+
+</script>
+
+

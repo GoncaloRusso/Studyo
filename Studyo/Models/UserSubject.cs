@@ -25,9 +25,6 @@ namespace Studyo.Models
         public int NumberOfCompletedChapters;
 
         [NotMapped]
-        public float Completion;
-
-        [NotMapped]
         public List<UserChapter> UserChapters { get; set; }
     }
 }

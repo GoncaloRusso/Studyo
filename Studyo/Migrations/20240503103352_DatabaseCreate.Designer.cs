@@ -12,8 +12,8 @@ using Studyo.Data;
 namespace Studyo.Migrations
 {
     [DbContext(typeof(StudyoDbContext))]
-    [Migration("20240407140226_CreateDatabase")]
-    partial class CreateDatabase
+    [Migration("20240503103352_DatabaseCreate")]
+    partial class DatabaseCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -359,7 +359,7 @@ namespace Studyo.Migrations
                     b.ToTable("Subjects");
                 });
 
-            modelBuilder.Entity("Studyo.Models.UserChapters", b =>
+            modelBuilder.Entity("Studyo.Models.UserChapter", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -384,7 +384,7 @@ namespace Studyo.Migrations
                     b.ToTable("UserChapters");
                 });
 
-            modelBuilder.Entity("Studyo.Models.UserSubjects", b =>
+            modelBuilder.Entity("Studyo.Models.UserSubject", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -547,7 +547,7 @@ namespace Studyo.Migrations
                     b.Navigation("QuizQuestion");
                 });
 
-            modelBuilder.Entity("Studyo.Models.UserChapters", b =>
+            modelBuilder.Entity("Studyo.Models.UserChapter", b =>
                 {
                     b.HasOne("Studyo.Models.Chapter", "Chapter")
                         .WithMany()
@@ -558,7 +558,7 @@ namespace Studyo.Migrations
                     b.Navigation("Chapter");
                 });
 
-            modelBuilder.Entity("Studyo.Models.UserSubjects", b =>
+            modelBuilder.Entity("Studyo.Models.UserSubject", b =>
                 {
                     b.HasOne("Studyo.Models.Subject", "Subject")
                         .WithMany()

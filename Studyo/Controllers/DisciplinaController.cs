@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Studyo.Data;
 using Studyo.Models;
 
 namespace Studyo.Controllers
 {
-    [Authorize]
     public class DisciplinaController : Controller
     {
         private readonly StudyoDbContext _context;
@@ -19,7 +18,7 @@ namespace Studyo.Controllers
             _userManger = userManager;
         }
 
-        public async Task<IActionResult> Index(int id, string searchString)
+        public async Task<IActionResult> Index(int id)
         {
             IdentityUser? user = await _userManger.GetUserAsync(User);
 
@@ -29,15 +28,7 @@ namespace Studyo.Controllers
 
             if (subject == null) { return NotFound(); }
 
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                subject.Chapters = [.. _context.Chapters.Where((chapter) => chapter.SubjectId == id &&
-                    chapter.Name.Contains(searchString))];
-            }
-            else
-            {
-                subject.Chapters = [.. _context.Chapters.Where((chapter) => chapter.SubjectId == id)];
-            }
+            subject.Chapters = [.. _context.Chapters.Where((chapter) => chapter.SubjectId == id)];
 
             var userSubject = _context.UserSubjects.Where((userSubject) => userSubject.SubjectId == id && userSubject.UserId == user.Id).FirstOrDefault();
 
@@ -47,8 +38,6 @@ namespace Studyo.Controllers
             [
                 .. _context.UserChapters.Where((userChapter) => userChapter.UserId == user.Id && subject.Chapters.Contains(userChapter.Chapter)),
             ];
-
-            ViewBag.CurrentFilter = searchString;
 
             return View(userSubject);
         }
@@ -150,5 +139,18 @@ namespace Studyo.Controllers
                 list[n] = value;
             }
         }
+
+        //[HttpPost("/Disciplina/GetQuizzesResult")]
+        //public async Task<IActionResult> GetQuizzesResult(int subjectId)
+        //{
+        //    IdentityUser? user = await _userManger.GetUserAsync(User);
+
+        //    if (user == null) { return Json(new { }); }
+
+
+
+        //    return Json();
+        //}
+
     }
 }

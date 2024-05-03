@@ -30,15 +30,9 @@
     .buttons {
         text-align: center;
     }
-
-    #timer {
-        font-size: 24px;
-        font-weight: bold;
-    }
 </style>
 
 <div>
-    <div id="timer"></div>
     <div>
         @foreach (var question in Model.QuizQuestions)
         {
@@ -58,7 +52,7 @@
         <button class="botao_simples" onclick="window.history.back()">Voltar</button>
         <!-- HTML with Razor syntax -->
         <a id="asdfbasdfasbdf"
-           class="botao_simples"
+            class="botao_simples"
            asp-controller="Disciplina"
            asp-action="QuizResult"
            asp-route-chapterId="@Model.ChapterId"
@@ -67,31 +61,6 @@
 </div>
 
 <script>
-    // Timer function
-    function startTimer(duration, display) {
-        var timer = duration, minutes, seconds;
-        setInterval(function () {
-            minutes = parseInt(timer / 60, 10);
-            seconds = parseInt(timer % 60, 10);
-
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-
-            display.textContent = minutes + ":" + seconds;
-
-            if (--timer == 0) {
-                document.getElementById('asdfbasdfasbdf').click();
-            }
-        }, 1000);
-    }
-
-    // Start the timer
-    window.onload = function () {
-        var duration = @Model.QuizQuestions.Count * 30,
-            display = document.querySelector('#timer');
-        startTimer(duration, display);
-    };
-
     let score = 0;
 
     const calculateScore = () => {
@@ -108,9 +77,7 @@
         .forEach((elem) => elem.addEventListener("click", () => {
             score = calculateScore();
             const temp = document.querySelector("#asdfbasdfasbdf");
-            temp.href = "/Disciplina/QuizResult?" + `chapterId=@{
-        @Model.ChapterId
-    }` + `&score=${score}`;
+            temp.href = "/Disciplina/QuizResult?" + `chapterId=@{@Model.ChapterId}` + `&score=${score}`;
         }));
 
 </script>
