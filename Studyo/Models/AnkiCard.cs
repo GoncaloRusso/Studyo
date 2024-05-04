@@ -3,7 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Studyo.Models
 {
-
+    /// <summary>
+    /// WORK IN PROGRESS!!!
+    /// Model for AnkiCards
+    /// </summary>
     [Table("AnkiCards")]
     public class AnkiCard
     {

@@ -9,18 +9,35 @@ using Studyo.Models;
 
 namespace Studyo.Controllers
 {
+    /// <summary>
+    /// Class responsable for managing the requests towards the page of Subjects and providing all the needed information to the Views so all the functions regarding said page
+    /// can work
+    /// </summary>
     [Authorize]
     public class DisciplinasController : Controller
     {
         private readonly StudyoDbContext _context;
         private readonly UserManager<IdentityUser> _userManger;
 
+        /// <summary>
+        /// Class constructor
+        /// </summary>
+        /// <param name="context"> Model for saving data for the data base</param>
+        /// <param name="userManager"> Managing the logged in user </param>
         public DisciplinasController(StudyoDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _userManger = userManager;
         }
 
+        /// <summary>
+        /// Calls the View responsible for loading the page of Subjects, providing it with a list of Subjects as a model, which each keeps the information a Subject.
+        /// Also, makes sure to load every existing UserSubject for the corrent user with the needed information from the data base model, so the functionality of displaying the
+        /// number of chapters completed on each subject works.
+        /// 
+        /// </summary>
+        /// <param name="searchString">Search bar text </param>
+        /// <returns>View with Subject List</returns>
         public async Task<IActionResult> Index(string searchString)
         {
             // GET THE USER
@@ -75,6 +92,10 @@ namespace Studyo.Controllers
 
         }
 
+        /// <summary>
+        /// Function mainly for testing purposes. Returns the list of all subjects in a JSON result
+        /// </summary>
+        /// <returns>JOSNResult with list of Subjects</returns>
         [HttpGet("/Disciplinas/GetSubjects")]
         public async Task<IActionResult> GetSubjects()
         {
@@ -83,7 +104,12 @@ namespace Studyo.Controllers
             return Json(subjects);
         }
 
-
+        /// <summary>
+        /// HTTP GET request function to fetch existing UserSubjects for the current user.
+        /// Loads each UserSubject with its respective UserChapters so it can calculate the number of chapters completed by the BestGrade value of the User.
+        /// The result is returned as a list of objects composed of the UserId, SubjectId and the number of completed chapters, in a JSONResult format.
+        /// </summary>
+        /// <returns>list of objects composed of the UserId, SubjectId and the number of completed chapters, in a JSONResult format.</returns>
         [HttpGet("/Disciplinas/GetEnrolledSubjects")]
         public async Task<IActionResult> GetEnrolledSubjects()
         {
@@ -111,6 +137,14 @@ namespace Studyo.Controllers
             return Json(temp);
         }
 
+        /// <summary>
+        /// Function responsible for implementing the algorithm wich recommends a chapter for the user to study.
+        /// This is done by going to all the UserSubject classes of the user existing in context and placing them in a list ordering them by their percentage of 
+        /// completion for their chapters.
+        /// After ordering the list from smallest value to highest and selecting the first UserSubject, the function now chooses which chapter from the Subject to suggest.
+        /// Searching for the one with the lowest completion score, or the first one it finds which hasn't been attempted yet.
+        /// </summary>
+        /// <returns> Calls the Content function from the DisciplinaController, which load the page of the chapter suggested</returns>
         public async Task<IActionResult> AdvisedStudy()
         {
             IdentityUser? user = await _userManger.GetUserAsync(User);

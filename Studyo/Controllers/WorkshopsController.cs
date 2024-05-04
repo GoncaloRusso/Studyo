@@ -2,6 +2,9 @@
 
 namespace Studyo.Controllers
 {
+    /// <summary>
+    /// WORK IN PROGRESS!!!
+    /// </summary>
     public class WorkshopsController : Controller
     {
         public IActionResult Index()
