@@ -1,0 +1,1 @@
+var breadcrumbs=[['-1',"",""],['2',"Studyo Reference","topic_00000000000000BE.html"],['155',"Studyo.Models Namespace","topic_0000000000000079.html"],['222',"Workshop Class","topic_00000000000000B1.html"],['223',"Properties","topic_00000000000000B1_props--.html"],['225',"Created Property","topic_00000000000000B6.html"]];

@@ -1,0 +1,1 @@
+search_result['136']=["topic_0000000000000051.html","DisciplinasController.GetSubjects Method","Function mainly for testing purposes. Returns the list of all subjects in a JSON result"];

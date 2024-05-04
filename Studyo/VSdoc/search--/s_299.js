@@ -1,0 +1,1 @@
+search_result['299']=["topic_00000000000000A9.html","UserSubject Class","Model for UserSubject, which is a class responsable for managing the interactions of the users with the different subjects.\r\nCreating a different UserSubject for each user the first time they open a S..."];

@@ -1,0 +1,1 @@
+search_result['122']=["topic_0000000000000048.html","DisciplinaController.AnkiCards Method","Work in Progress!\r\nCalls the View to load Anki Card"];

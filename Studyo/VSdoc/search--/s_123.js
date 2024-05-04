@@ -1,0 +1,1 @@
+search_result['123']=["topic_0000000000000049.html","DisciplinaController.QuizResult Method","Calls the View responsible for loading the page showing the result obtained by the user on quiz submition.\r\nFunction makes sure to take the necessary steps creating or editing the UserChapter class, w..."];

@@ -1,0 +1,1 @@
+search_result['135']=["topic_0000000000000050.html","DisciplinasController.Index Method","Calls the View responsible for loading the page of Subjects, providing it with a list of Subjects as a model, which each keeps the information a Subject.\r\nAlso, makes sure to load every existing UserS..."];

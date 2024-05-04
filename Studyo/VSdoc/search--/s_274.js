@@ -1,0 +1,1 @@
+search_result['274']=["topic_000000000000009A.html","QuizQuestionAnswer.isCorrectAnswer Property","Boolean that identifies if the answer is correct (true) or wrong (false)"];

@@ -1,0 +1,1 @@
+search_result['138']=["topic_0000000000000053.html","DisciplinasController.AdvisedStudy Method","Function responsible for implementing the algorithm wich recommends a chapter for the user to study.\r\nThis is done by going to all the UserSubject classes of the user existing in context and placing t..."];

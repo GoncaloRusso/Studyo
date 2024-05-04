@@ -1,0 +1,1 @@
+search_result['287']=["topic_00000000000000A2.html","UserChapter Class","Model for UserChapter, which is a class responsable for managing and saving the results of the interactions of the users with the different chapters.\r\nCreating a different userchapter for each user th..."];

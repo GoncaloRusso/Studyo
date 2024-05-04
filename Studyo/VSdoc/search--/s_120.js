@@ -1,0 +1,1 @@
+search_result['120']=["topic_0000000000000046.html","DisciplinaController.Quiz Method","Calls the View responsible for loading the page of a Quiz, providing it with a Quiz class as a model, making sure to prepair all of its data before sending it"];

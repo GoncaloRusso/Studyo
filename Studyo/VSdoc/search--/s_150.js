@@ -1,0 +1,1 @@
+search_result['150']=["topic_000000000000005A.html","PomodoroController Class","Class responsable for managing the requests towards the Pomodoro tool, with functions to load the page and set parameters"];

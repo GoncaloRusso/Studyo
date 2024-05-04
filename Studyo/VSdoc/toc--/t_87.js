@@ -1,0 +1,1 @@
+c['87']=[['88',"DisciplinaController Constructor","topic_0000000000000044.html",0],['89',"Methods","topic_0000000000000041_methods--.html",1],['97',"Fields","topic_0000000000000041_vars--.html",1]];

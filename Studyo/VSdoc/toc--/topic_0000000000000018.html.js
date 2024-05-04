@@ -1,0 +1,1 @@
+var breadcrumbs=[['-1',"",""],['2',"Studyo Reference","topic_00000000000000BE.html"],['4',"Studyo.Areas.Identity.Pages.Account Namespace","topic_0000000000000000.html"],['25',"ForgotPasswordModel Class","topic_0000000000000011.html"],['32',"Methods","topic_0000000000000011_methods--.html"],['33',"OnPostAsync Method","topic_0000000000000018.html"]];

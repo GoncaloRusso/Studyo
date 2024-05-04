@@ -1,0 +1,1 @@
+search_result['298']=["topic_00000000000000A8.html","UserChapter.BestGrade Property","Parameter used to save the best score the user has ever achieved submiting the quiz of the chapter."];

@@ -1,0 +1,1 @@
+search_result['119']=["topic_0000000000000045.html","DisciplinaController.Index Method","Calls the View responsible for loading the page of a Subject, providing it with a UserSubject class as a model, which keeps the interaction of the User with the Subject\r\nand the information of said Su..."];

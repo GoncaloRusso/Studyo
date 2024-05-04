@@ -1,0 +1,1 @@
+search_result['294']=["topic_00000000000000A4.html","UserChapter.ChapterId Property","Id of the Chapter in this relation between the User and the Chapter"];

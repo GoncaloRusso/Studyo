@@ -1,0 +1,1 @@
+search_result['137']=["topic_0000000000000052.html","DisciplinasController.GetEnrolledSubjects Method","HTTP GET request function to fetch existing UserSubjects for the current user.\r\nLoads each UserSubject with its respective UserChapters so it can calculate the number of chapters completed by the Best..."];

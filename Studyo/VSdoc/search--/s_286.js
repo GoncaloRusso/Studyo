@@ -1,0 +1,1 @@
+search_result['286']=["topic_00000000000000A1.html","Subject.Chapters Property","NotMapped parameter which is used to load in a list all the Chapters for this Subject when needed to be shown/used."];

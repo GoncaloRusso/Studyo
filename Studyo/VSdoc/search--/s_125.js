@@ -1,0 +1,1 @@
+search_result['125']=["topic_000000000000004B.html","DisciplinaController.Shuffle\u0026lt;T\u0026gt; Method","Function called when loading the page of a Quiz, responsible for shuffling the answers of each question so they don\u0027t always show in the same order."];

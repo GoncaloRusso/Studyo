@@ -1,0 +1,1 @@
+search_result['126']=["topic_000000000000004C.html","DisciplinasController Class","Class responsable for managing the requests towards the page of Subjects and providing all the needed information to the Views so all the functions regarding said page\r\ncan work"];

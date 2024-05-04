@@ -1,0 +1,1 @@
+search_result['225']=["topic_0000000000000082.html","Chapter.SubjectId Property","Id of the Subject the Chapter belongs too."];
