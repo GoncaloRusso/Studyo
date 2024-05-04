@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Studyo.Data;
+using Studyo.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -17,7 +19,7 @@ services.AddAuthentication((options) =>
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
 })
-.AddCookie((options) => options.LoginPath = "/Identity/Account/Login" )
+.AddCookie((options) => options.LoginPath = "/Identity/Account/Login")
 .AddGoogle(GoogleDefaults.AuthenticationScheme, (options) =>
 {
     options.ClientId = configuration["Authentication:Google:ClientId"];
@@ -27,7 +29,10 @@ services.AddAuthentication((options) =>
 services.AddDbContext<StudyoDbContext>((options) => options.UseSqlServer(connectionString));
 services.AddDatabaseDeveloperPageExceptionFilter();
 
-services.AddDefaultIdentity<IdentityUser>((options) => options.SignIn.RequireConfirmedAccount = false ).AddEntityFrameworkStores<StudyoDbContext>();
+services.AddDefaultIdentity<IdentityUser>((options) => options.SignIn.RequireConfirmedAccount = false) // TODO
+    .AddEntityFrameworkStores<StudyoDbContext>()
+    .AddDefaultTokenProviders();
+
 services.AddRazorPages();
 services.AddControllersWithViews();
 
@@ -49,7 +54,7 @@ services.Configure<IdentityOptions>((options) =>
     // User settings.
     options.User.AllowedUserNameCharacters =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789- ._@+";
-    options.User.RequireUniqueEmail = false;
+    options.User.RequireUniqueEmail = true;
 });
 
 services.ConfigureApplicationCookie(options =>
@@ -62,6 +67,15 @@ services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/Identity/Account/AccessDenied";
     options.SlidingExpiration = true;
 });
+
+services.AddTransient<IEmailSender, EmailSender>();
+services.Configure<AuthMessageSenderOptions>(builder.Configuration);
+services.ConfigureApplicationCookie(o =>
+{
+    o.ExpireTimeSpan = TimeSpan.FromDays(5);
+    o.SlidingExpiration = true;
+});
+
 
 var app = builder.Build();
 

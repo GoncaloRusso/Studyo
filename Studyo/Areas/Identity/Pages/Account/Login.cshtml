@@ -5,6 +5,35 @@
     ViewData["Title"] = "Log in";
 }
 
+<style>
+    .button-container {
+        padding: 10px; /* Padding around the container */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .botao_simples {
+        display: block;
+        width: 200px;
+        height: 40px;
+        margin: 10px auto;
+        background-color: transparent;
+        color: white;
+        border: 2px solid white;
+        text-align: center;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+        .botao_simples:hover,
+        .botao_simples:active {
+            color: white;
+            border-color: white;
+            text-decoration: none;
+        }
+
+</style>
+
 <h1>@ViewData["Title"]</h1>
 
 <div>
@@ -31,15 +60,7 @@
                     </label>
                 </div>
                 <div>
-                    <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                </div>
-                <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                    <button id="login-submit" type="submit" class="botao_simples">Log in</button>
                 </div>
             </form>
             <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
@@ -47,11 +68,12 @@
                     <p>
                         @foreach (var provider in Model.ExternalLogins!)
                         {
-                            <button type="submit" class="w-100 btn btn-lg btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                            <button type="submit" class="botao_simples" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
                         }
                     </p>
                 </div>
             </form>
+            <button id="goBackButton" class="botao_simples" onclick="window.history.back()">Voltar</button>
         </section>
     </div>
 </div>

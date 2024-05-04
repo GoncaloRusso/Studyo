@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Studyo.Models
 {
-
     [Table("Quizzes")]
     public class Quiz
     {

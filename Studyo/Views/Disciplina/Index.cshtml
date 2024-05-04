@@ -74,7 +74,13 @@
                         @if (Model.UserChapters.Any(userChapter => userChapter.ChapterId == item.Id))
                         {
                             var grade = Model.UserChapters.First(userChapter => userChapter.ChapterId == item.Id).BestGrade;
-                            <h3>@grade %</h3>
+                            @if (@grade >= 75)
+                            {
+                                <h3>@grade% (Aprovado)</h3>
+                            } else
+                            {
+                                <h3>@grade% (Reprovado)</h3>
+                            }
                         }
                         else
                         {
